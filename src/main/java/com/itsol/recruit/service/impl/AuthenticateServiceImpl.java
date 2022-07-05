@@ -8,8 +8,11 @@ import com.itsol.recruit.repository.AuthenticateRepository;
 import com.itsol.recruit.repository.RoleRepository;
 import com.itsol.recruit.repository.UserRepository;
 import com.itsol.recruit.service.AuthenticateService;
+import com.itsol.recruit.service.UserService;
 import com.itsol.recruit.service.mapper.UserMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -19,6 +22,9 @@ import java.util.Set;
 @Transactional
 @Slf4j
 public class AuthenticateServiceImpl implements AuthenticateService {
+
+    @Autowired
+    UserService userService;
 
     public final AuthenticateRepository authenticateRepository;
 
@@ -35,8 +41,11 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         this.userRepository = userRepository;
     }
 
+
+
     @Override
     public User signup(UserDTO dto) {
+
         try{
             Set<Role> roles = roleRepository.findByCode(Constants.Role.USER);
             User user = userMapper.toEntity(dto);
@@ -45,10 +54,15 @@ public class AuthenticateServiceImpl implements AuthenticateService {
             user.setActive(false);
             user.setDelete(false);
             user.setRoles(roles);
-//
+
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String enCryptPassword = passwordEncoder.encode(dto.getPassword());
+            user.setPassword(enCryptPassword);
             userRepository.save(user);
+            userService.sendConfirmUserRegistrationViaEmail(user.getEmail());
 //        OTP otp = userService.generateOTP(user);
-//        String linkActive = accountActivationConfig.getActivateUrl() + user.getId();
+//       String linkActive = accountActivationConfig.getActivateUrl() + user.getId();
 //        emailService.sendSimpleMessage(user.getEmail(),
 //                "Link active account",
 //                "<a href=\" " + linkActive + "\">Click vào đây để kích hoạt tài khoản</a>");
