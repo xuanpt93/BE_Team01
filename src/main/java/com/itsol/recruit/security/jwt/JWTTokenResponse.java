@@ -1,5 +1,6 @@
 package com.itsol.recruit.security.jwt;
 
+import com.itsol.recruit.entity.User;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -10,5 +11,5 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class JWTTokenResponse {
     String jwt;
-    String username;
+    User user;
 }

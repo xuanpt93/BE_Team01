@@ -8,10 +8,22 @@ spring:
     username: team01
     password: 123456
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: hulkhulk1245@gmail.com
+    password: epiqsepylqtdauca
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     database-platform: org.hibernate.dialect.OracleDialect
 
 application:
