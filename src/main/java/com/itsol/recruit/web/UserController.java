@@ -4,6 +4,7 @@ import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,5 +31,12 @@ public class UserController {
     @GetMapping(value = "/user/{id}")
     public ResponseEntity<User> findUserById(@RequestParam("id") Long id){
         return  ResponseEntity.ok().body( userService.findById(id));
+    }
+
+    @PreAuthorize("permitAll()")
+    @GetMapping(value = "active_account")
+    public ResponseEntity<?> activeAccount(@RequestParam("id") Long id){
+        userService.activeAccount(id);
+        return  ResponseEntity.ok().body("ok");
     }
 }
