@@ -21,4 +21,6 @@ public interface UserService {
 
     void activeAccount(Long id);
 
+    String generateOTP(User user);
+
 }

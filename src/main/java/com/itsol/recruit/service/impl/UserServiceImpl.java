@@ -1,7 +1,9 @@
 package com.itsol.recruit.service.impl;
 
+import com.itsol.recruit.entity.OTP;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.event.OnSendRegistrationUserConfirmViaEmailEvent;
+import com.itsol.recruit.repository.OTPRepository;
 import com.itsol.recruit.repository.UserRepository;
 import com.itsol.recruit.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ApplicationEventPublisher eventPublisher;
+
+    @Autowired
+    OTPRepository otpRepository;
 
     public final UserRepository userRepository;
 
@@ -60,6 +65,7 @@ public class UserServiceImpl implements UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
+
     @Override
     public void sendConfirmUserRegistrationViaEmail(String email) {
         eventPublisher.publishEvent(new OnSendRegistrationUserConfirmViaEmailEvent(email));
@@ -71,5 +77,18 @@ public class UserServiceImpl implements UserService {
         user.setActive(true);
         userRepository.save(user);
     }
+
+    @Override
+    public String generateOTP(User user) {
+        int max = 99999;
+        int min = 10000;
+        Long otp = (long) ((Math.random() * (max - min)) + min);
+        String otpStr = otp + "";
+        OTP otp1 = new OTP(user);
+        otp1.setCode(otpStr);
+        otpRepository.save(otp1);
+        return otpStr;
+    }
+
 
 }
