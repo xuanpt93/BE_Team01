@@ -2,19 +2,31 @@ package com.itsol.recruit.service.impl;
 
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.UserDTO;
+import com.itsol.recruit.entity.OTP;
 import com.itsol.recruit.entity.Role;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.event.IMailService;
 import com.itsol.recruit.repository.AuthenticateRepository;
+import com.itsol.recruit.repository.OTPRepository;
 import com.itsol.recruit.repository.RoleRepository;
 import com.itsol.recruit.repository.UserRepository;
+import com.itsol.recruit.security.jwt.JWTFilter;
+import com.itsol.recruit.security.jwt.JWTTokenResponse;
+import com.itsol.recruit.security.jwt.TokenProvider;
 import com.itsol.recruit.service.AuthenticateService;
 import com.itsol.recruit.service.UserService;
 import com.itsol.recruit.service.mapper.UserMapper;
+import com.itsol.recruit.web.vm.LoginVM;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,8 +49,14 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     @Autowired
     JavaMailSender javaMailSender;
 
-    private String otp;
-    private User user;
+    @Autowired
+    OTPRepository otpRepository;
+
+    @Autowired
+    AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    @Autowired
+    TokenProvider tokenProvider;
 
     public final AuthenticateRepository authenticateRepository;
 
@@ -94,7 +112,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     }
 
     public String sendOtpToGmail(String gmail) {
-        this.user = userService.findUserByEmail(gmail);
+        User user = userService.findUserByEmail(gmail);
         // Creating a mime message
         MimeMessage mimeMessage
                 = javaMailSender.createMimeMessage();
@@ -104,27 +122,43 @@ public class AuthenticateServiceImpl implements AuthenticateService {
                     = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setFrom("hulkhulk1245@gmail.com");
             mimeMessageHelper.setTo(gmail);
-            mimeMessageHelper.setText("Please dont share this token with anyone else: " + this.otp);
-            this.otp = userService.generateOTP(user) + "";
+            String otp = userService.generateOTP(user) + "";
+            mimeMessageHelper.setText("Please dont share this token with anyone else: " + otp);
             mimeMessageHelper.setSubject("Verifing forgot password");
             javaMailSender.send(mimeMessage);
-            return this.otp;
+            return otp;
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void takeNewPassword(String otpTaken, String newPassword) {
-        if (otpTaken.equals(this.otp)) {
+        OTP otp = otpRepository.findByCode(otpTaken);
+        if (otpRepository.findByCode(otpTaken) != null) {
             if (newPassword.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
                 BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
                 String enCryptPassword = passwordEncoder.encode(newPassword);
-                this.user.setPassword(enCryptPassword);
-                userRepository.save(this.user);
+                User user = otp.getUser();
+                user.setPassword(enCryptPassword);
+                userRepository.save(user);
             }
 
         }
 
+    }
+
+    public JWTTokenResponse login(LoginVM loginVM) {
+        UsernamePasswordAuthenticationToken authenticationString = new UsernamePasswordAuthenticationToken(
+                loginVM.getUserName(),
+                loginVM.getPassword()
+        );
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationString);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String jwt = tokenProvider.createToken(authentication, loginVM.getRememberMe());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, String.format("Bearer %s", jwt));
+        User userLogin = userService.findUserByUserName(loginVM.getUserName());
+        return new JWTTokenResponse(jwt, userLogin);
     }
 
 }
