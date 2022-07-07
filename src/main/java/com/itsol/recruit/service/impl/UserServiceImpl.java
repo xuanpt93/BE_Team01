@@ -1,5 +1,6 @@
 package com.itsol.recruit.service.impl;
 
+import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.entity.OTP;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.event.OnSendRegistrationUserConfirmViaEmailEvent;
@@ -11,6 +12,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 
@@ -86,14 +88,20 @@ public class UserServiceImpl implements UserService {
         String otpStr = otp + "";
         OTP otp1 = new OTP(user);
         otp1.setCode(otpStr);
+        Date issueAt = new Date();
+        Long issue = issueAt.getTime() + Constants.OTP.EXPIRED_TIME;
+        otp1.setIssueAt(issue);
         otpRepository.save(otp1);
         return otpStr;
+
+
     }
 
     @Override
     public User findByPhonenumber(String phone) {
         return userRepository.findUserByPhoneNumber(phone);
     }
+
 
 
 }
