@@ -11,7 +11,6 @@ import com.itsol.recruit.service.UserService;
 import com.itsol.recruit.web.vm.LoginVM;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +20,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.AUTH)
@@ -45,8 +43,9 @@ public class AuthenticateController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> signup(@Valid @RequestBody UserDTO dto) {
-        return ResponseEntity.ok().body(authenticateService.signup(dto));
+    public ResponseEntity<?> signup(@Valid @RequestBody UserDTO dto) {
+        authenticateService.signup(dto);
+        return ResponseEntity.ok().body("ok");
     }
 
     /*
@@ -84,6 +83,7 @@ public class AuthenticateController {
         authenticateService.sendOtpToGmail(email);
         return ResponseEntity.ok().body("ok");
     }
+
     @PreAuthorize("permitAll()")
     @PostMapping("/newPass-setting")
     public ResponseEntity<?> resetPassword(@RequestParam("opt") String optGen, @RequestParam("newpass") String newpass) {

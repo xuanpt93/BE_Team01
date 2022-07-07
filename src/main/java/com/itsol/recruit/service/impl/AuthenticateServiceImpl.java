@@ -57,7 +57,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
 
     @Override
-    public User signup(UserDTO dto) {
+    public User signup(UserDTO dto) throws MessagingException {
 
         try {
             Set<Role> roles = roleRepository.findByCode(Constants.Role.USER);
@@ -74,16 +74,19 @@ public class AuthenticateServiceImpl implements AuthenticateService {
             user.setPassword(enCryptPassword);
             userRepository.save(user);
             userService.sendConfirmUserRegistrationViaEmail(user.getEmail());
+            return user;
+
 //        OTP otp = userService.generateOTP(user);
 //       String linkActive = accountActivationConfig.getActivateUrl() + user.getId();
 //        emailService.sendSimpleMessage(user.getEmail(),
 //                "Link active account",
 //                "<a href=\" " + linkActive + "\">Click vào đây để kích hoạt tài khoản</a>");
-            return user;
+
         } catch (Exception e) {
             log.error("cannot save to database");
             return null;
         }
+
 
     }
 
@@ -112,9 +115,9 @@ public class AuthenticateServiceImpl implements AuthenticateService {
                     = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setFrom("hulkhulk1245@gmail.com");
             mimeMessageHelper.setTo(gmail);
-            mimeMessageHelper.setText("Please dont share this token with anyone else");
+            mimeMessageHelper.setText("Please dont share this token with anyone else: " + this.otp);
             this.otp = userService.generateOTP(user) + "";
-            mimeMessageHelper.setSubject(this.otp);
+            mimeMessageHelper.setSubject("Verifing forgot password");
             javaMailSender.send(mimeMessage);
             return this.otp;
         } catch (MessagingException e) {

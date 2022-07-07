@@ -11,10 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class MailService implements IMailService{
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private JavaMailSender javaMailSender;
 
