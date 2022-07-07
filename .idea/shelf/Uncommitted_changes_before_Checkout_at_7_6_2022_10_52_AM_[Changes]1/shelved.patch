@@ -1,0 +1,43 @@
+Index: src/main/resources/application.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>server:\r\n  port: 9090\r\n\r\nspring:\r\n  datasource:\r\n    driver-class-name: oracle.jdbc.driver.OracleDriver\r\n    url: jdbc:oracle:thin:@localhost:1521:xe\r\n    username: team01\r\n    password: 123456\r\n\r\n  mail:\r\n    host: smtp.gmail.com\r\n    port: 587\r\n    username: hulkhulk1245@gmail.com\r\n    password: epiqsepylqtdauca\r\n    properties:\r\n      mail:\r\n        smtp:\r\n          auth: true\r\n          starttls:\r\n            enable: true\r\n\r\n  jpa:\r\n    show-sql: true\r\n    hibernate:\r\n      ddl-auto: update\r\n    database-platform: org.hibernate.dialect.OracleDialect\r\n\r\napplication:\r\n  security:\r\n    jwt:\r\n      secretKey: de6aaeabadeccc598160172044da9c566242ae3b\r\n      tokenValidityMilliseconds: 86400000\r\n      rememberMeTokenValiditySeconds: 25920000000\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/application.yml b/src/main/resources/application.yml
+--- a/src/main/resources/application.yml	
++++ b/src/main/resources/application.yml	
+@@ -23,7 +23,7 @@
+   jpa:
+     show-sql: true
+     hibernate:
+-      ddl-auto: update
++      ddl-auto: none
+     database-platform: org.hibernate.dialect.OracleDialect
+ 
+ application:
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <annotationProcessing>\r\n      <profile default=\"true\" name=\"Default\" enabled=\"true\" />\r\n      <profile name=\"Maven default annotation processors profile\" enabled=\"true\">\r\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\r\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\r\n        <outputRelativeToContentRoot value=\"true\" />\r\n        <module name=\"recruit\" />\r\n      </profile>\r\n    </annotationProcessing>\r\n  </component>\r\n  <component name=\"JavacSettings\">\r\n    <option name=\"ADDITIONAL_OPTIONS_OVERRIDE\">\r\n      <module name=\"recruit\" options=\"-parameters\" />\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	
++++ b/.idea/compiler.xml	
+@@ -8,11 +8,13 @@
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+         <outputRelativeToContentRoot value="true" />
+         <module name="recruit" />
++        <module name="BE_Team01" />
+       </profile>
+     </annotationProcessing>
+   </component>
+   <component name="JavacSettings">
+     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
++      <module name="BE_Team01" options="-parameters" />
+       <module name="recruit" options="-parameters" />
+     </option>
+   </component>
