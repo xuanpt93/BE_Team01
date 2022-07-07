@@ -7,7 +7,7 @@ import com.itsol.recruit.entity.User;
 import javax.mail.MessagingException;
 
 public interface AuthenticateService {
-    public User signup(UserDTO dto) throws MessagingException;
+    public User signup(UserDTO dto);
 
     void changePassword(Long id, String newPasswors);
 

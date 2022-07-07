@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PreAuthorize("permitAll()")
-    @PostMapping(value = "active_account")
+    @GetMapping(value = "active_account")
     public ResponseEntity<?> activeAccount(@RequestParam("id") Long id){
         userService.activeAccount(id);
         return  ResponseEntity.ok().body("ok");

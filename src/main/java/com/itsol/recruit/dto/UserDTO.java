@@ -19,11 +19,9 @@ public class UserDTO {
 
     @NotNull
     @EmailFormatValidation
-    @EmailDuplicateValidation
     String email;
 
     @NotNull
-    @UsernameDuplicateValidation
     String userName;
 
     @NotNull

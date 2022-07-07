@@ -57,8 +57,7 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
 
     @Override
-    public User signup(UserDTO dto) throws MessagingException {
-
+    public User signup(UserDTO dto) {
         try {
             Set<Role> roles = roleRepository.findByCode(Constants.Role.USER);
             User user = userMapper.toEntity(dto);
@@ -67,28 +66,18 @@ public class AuthenticateServiceImpl implements AuthenticateService {
             user.setActive(false);
             user.setDelete(false);
             user.setRoles(roles);
-
-
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String enCryptPassword = passwordEncoder.encode(dto.getPassword());
             user.setPassword(enCryptPassword);
             userRepository.save(user);
-            userService.sendConfirmUserRegistrationViaEmail(user.getEmail());
+            iMailService.sendRegistrationUserConfirm(user.getEmail());
             return user;
-
-//        OTP otp = userService.generateOTP(user);
-//       String linkActive = accountActivationConfig.getActivateUrl() + user.getId();
-//        emailService.sendSimpleMessage(user.getEmail(),
-//                "Link active account",
-//                "<a href=\" " + linkActive + "\">Click vào đây để kích hoạt tài khoản</a>");
-
         } catch (Exception e) {
             log.error("cannot save to database");
             return null;
         }
-
-
     }
+
 
     public void changePassword(Long id, String newPassword) {
         User user = userService.findById(id);
@@ -127,14 +116,15 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
     public void takeNewPassword(String otpTaken, String newPassword) {
         if (otpTaken.equals(this.otp)) {
-                if (newPassword.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
-                    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-                    String enCryptPassword = passwordEncoder.encode(newPassword);
-                    this.user.setPassword(enCryptPassword);
-                    userRepository.save(this.user);
-                }
+            if (newPassword.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                String enCryptPassword = passwordEncoder.encode(newPassword);
+                this.user.setPassword(enCryptPassword);
+                userRepository.save(this.user);
+            }
 
         }
 
     }
+
 }
