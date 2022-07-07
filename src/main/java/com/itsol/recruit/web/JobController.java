@@ -45,4 +45,7 @@ public class JobController {
         jobService.deleteById(id);
         return ResponseEntity.ok().body("successfull");
     }
+
+    /*@PutMapping("/job/update/{id}")
+    public ResponseEntity<Optional<Job>> update(@PathVariable Long id, @RequestBody Job job)*/
 }
