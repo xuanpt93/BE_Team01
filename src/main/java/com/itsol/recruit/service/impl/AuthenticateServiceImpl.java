@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -132,17 +133,17 @@ public class AuthenticateServiceImpl implements AuthenticateService {
         }
     }
 
-    public void takeNewPassword(String otpTaken, String newPassword) {
-        OTP otp = otpRepository.findByCode(otpTaken);
-        if (otpRepository.findByCode(otpTaken) != null) {
-            if (newPassword.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
-                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-                String enCryptPassword = passwordEncoder.encode(newPassword);
-                User user = otp.getUser();
-                user.setPassword(enCryptPassword);
-                userRepository.save(user);
-            }
+    public void takeNewPassword(String otpTaken, String password) {
 
+        OTP otp = otpRepository.findByCode(otpTaken);
+        User user = userRepository.findUserById(otp.getUser().getId());
+
+        if (otpRepository.findByCode(otpTaken) != null) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String enCryptPassword = passwordEncoder.encode(password);
+
+            user.setPassword(enCryptPassword);
+            userRepository.save(user);
         }
 
     }
