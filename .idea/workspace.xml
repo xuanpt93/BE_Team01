@@ -78,6 +78,17 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Admin/OneDrive - hanu.edu.vn/Desktop/SpringTutorial",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "1e81e8cc4aa187b5120141fae31fc0e3"
     "WebServerToolWindowFactoryState": "false",
     "nodejs_package_manager_path": "npm",
     "spring.configuration.checksum": "c5a5adb4becbec9d63074dcb70a2fa03"
@@ -97,7 +108,7 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;1e81e8cc4aa187b5120141fae31fc0e3&quot;
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="ImportMappingsDialog.RecentPackages">
       <recent name="com.itsol.recruit.entity" />
@@ -136,6 +147,7 @@
       <workItem from="1657129719811" duration="2574000" />
       <workItem from="1657163977756" duration="18369000" />
       <workItem from="1657188451751" duration="5142000" />
+      <workItem from="1657203370770" duration="12862000" />
     </task>
     <servers />
   </component>
