@@ -73,6 +73,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Admin/OneDrive - hanu.edu.vn/Desktop/SpringTutorial",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "1e81e8cc4aa187b5120141fae31fc0e3"
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "c5a5adb4becbec9d63074dcb70a2fa03"
+  }
+}]]></component>
+
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
@@ -95,6 +115,7 @@
   </component>
   <component name="RunManager">
     <configuration name="RecruitApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="recruit" />
       <option name="ACTIVE_PROFILES" />
       <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -121,6 +142,7 @@
       <workItem from="1655191687850" duration="1181000" />
       <workItem from="1656645259528" duration="1428000" />
       <workItem from="1656749350171" duration="8391000" />
+      <workItem from="1657194044861" duration="642000" />
       <workItem from="1657129719811" duration="2574000" />
       <workItem from="1657163977756" duration="18369000" />
       <workItem from="1657188451751" duration="5142000" />
@@ -159,3 +181,12 @@
     </breakpoint-manager>
   </component>
 </project>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="userSearchVM.pageNumber" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
+</project>
+
