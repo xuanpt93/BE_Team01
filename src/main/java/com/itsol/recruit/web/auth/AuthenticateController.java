@@ -66,10 +66,10 @@ public class AuthenticateController {
         User user =userService.findUserByUserName(loginVM.getUserName());
         if (user == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Incorrect username", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Tài khoản không tồn tại", ""));
         } else if (!passwordEncoder.matches(loginVM.getPassword(), userService.findUserByUserName(loginVM.getUserName()).getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject(HttpStatus.BAD_REQUEST, "Incorrect password", ""));
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Sai thông tin mật khẩu", ""));
         } else if (user.isActive() == false) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
                     new ResponseObject(HttpStatus.UNAUTHORIZED, "Tài khoản chưa active", ""));
@@ -97,7 +97,7 @@ public class AuthenticateController {
 
     @PreAuthorize("permitAll()")
     @PostMapping("/newPass-setting")
-    public ResponseEntity<?> resetPassword(@RequestParam("opt") String optGen, @RequestParam("newpass") String newpass) {
+    public ResponseEntity<?> resetPassword(@RequestParam("opt") String optGen, @RequestParam("password") String password) {
         if (otpRepository.findByCode(optGen) == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject(HttpStatus.BAD_REQUEST, "Otp không đúng!", ""));
@@ -105,7 +105,7 @@ public class AuthenticateController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                     new ResponseObject(HttpStatus.BAD_REQUEST, "Otp này đã hết hạn!", ""));
         }
-        authenticateService.takeNewPassword(optGen, newpass);
+        authenticateService.takeNewPassword(optGen, password);
         return ResponseEntity.ok().body(HttpStatus.OK);
     }
 }
