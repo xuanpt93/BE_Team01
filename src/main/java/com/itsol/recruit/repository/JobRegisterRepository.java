@@ -17,4 +17,5 @@ public interface JobRegisterRepository extends JpaRepository<JobRegister, Long>,
     List<JobRegister> findAllOrderByDateAsc();
     Optional<JobRegister> findById(Long id);
 
+
 }

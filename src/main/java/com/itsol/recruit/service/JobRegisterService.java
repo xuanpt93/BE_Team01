@@ -11,5 +11,7 @@ public interface JobRegisterService {
     Optional<JobRegister> findById(Long id);
     JobRegister addJobRegister(JobRegisterDTO dto);
     void deleteById(Long id);
-    void updateById(Long id);
+    void updateById(JobRegisterDTO jobRegisterDTO, Long id);
+
+    JobRegisterDTO save(JobRegisterDTO jobRegisterDTO);
 }

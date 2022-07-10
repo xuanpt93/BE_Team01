@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -12,22 +13,27 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class JobRegisterDTO {
 
-    @NonNull
+    @NotNull
     String addressInterview;
-    @NonNull
+    @NotNull
     String cvFile;
-    @NonNull
+    @NotNull
     Date dateInterview;
-    @NonNull
+    @NotNull
     Date dateRegister;
-    @NonNull
-    Long jobId;
-    @NonNull
+    @NotNull
+    Long jobRegisterId;
+    @NotNull
     String mediaType;
-    @NonNull
+    @NotNull
     String methodInterview;
-    @NonNull
+    @NotNull
     Long userId;
+    @NotNull
+    Long statusJobRegisterId;
+
+
+
 
 
 

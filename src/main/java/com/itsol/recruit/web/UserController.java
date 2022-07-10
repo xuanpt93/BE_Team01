@@ -39,4 +39,8 @@ public class UserController {
         userService.activeAccount(id);
         return  ResponseEntity.ok().body("ok");
     }
+
+
+
+
 }
