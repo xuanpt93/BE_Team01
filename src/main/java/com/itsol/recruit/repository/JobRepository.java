@@ -20,5 +20,4 @@ public interface JobRepository extends JpaRepository<Job, Long>, JobRepositoryEx
     Optional<Job> findById(Long id);
 
 //    void deleteById(Long id);
-
 }
