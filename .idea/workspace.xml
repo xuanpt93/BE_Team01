@@ -5,17 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3a9a751-07b9-4acc-9920-d4451441df1f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/event/MailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/event/MailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/OTPRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/OTPRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/AuthenticateServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/AuthenticateServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/auth/AuthenticateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/auth/AuthenticateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/event/MailService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/event/MailService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/OTPRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/OTPRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/repoext/UserRepositoryExt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/repoext/UserRepositoryExt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/AuthenticateServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/AuthenticateServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/web/auth/AuthenticateController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/web/auth/AuthenticateController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/UserServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/web/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/web/UserController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +79,6 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RequestMappingsPanelOrder0": "0",
@@ -86,6 +91,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "c5a5adb4becbec9d63074dcb70a2fa03"
     "spring.configuration.checksum": "1e81e8cc4aa187b5120141fae31fc0e3"
     "WebServerToolWindowFactoryState": "false",
     "nodejs_package_manager_path": "npm",
@@ -107,13 +113,27 @@
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;1e81e8cc4aa187b5120141fae31fc0e3&quot;
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="ImportMappingsDialog.RecentPackages">
       <recent name="com.itsol.recruit.entity" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.RecruitApplication (1)">
+    <configuration name="RecruitApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="recruit" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.itsol.recruit.RecruitApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RecruitApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="recruit" />
       <option name="ACTIVE_PROFILES" />
@@ -147,6 +167,7 @@
       <workItem from="1657163977756" duration="18369000" />
       <workItem from="1657188451751" duration="5142000" />
       <workItem from="1657203370770" duration="12862000" />
+      <workItem from="1657269387114" duration="30543000" />
     </task>
     <servers />
   </component>
@@ -176,6 +197,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/AuthenticateServiceImpl.java</url>
           <line>144</line>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/UserServiceImpl.java</url>
+          <line>159</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
