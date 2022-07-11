@@ -23,9 +23,9 @@ public class JobMapper implements EntityMapper<JobDTO, Job> {
         if(dto == null){
             return null;
         }
-        Job enity = new Job();
-        BeanUtils.copyProperties(dto,enity);
-        return enity;
+        Job entity = new Job();
+        BeanUtils.copyProperties(dto,entity);
+        return entity;
     }
 
     @Override
