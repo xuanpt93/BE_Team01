@@ -27,8 +27,8 @@ public class MailService implements IMailService{
 		User user = userService.findUserByEmail(email);
 
 		String confirmationUrl =
-				"http://localhost:9090/api/public/active_account?id="
-				+ user.getId();
+				"http://localhost:4200/transtolink";
+
 
 		String subject = "Account registration confirmation.";
 
