@@ -44,6 +44,28 @@ public class JobMapper implements EntityMapper<JobDTO, Job> {
         }
         Job entity = new Job();
         BeanUtils.copyProperties(dto,entity);
+        entity.setRank(rankRepository.getById(dto.getRankId()));
+        entity.setWorkingForm(workingFormRepository.getById(dto.getWorkingFormId()));
+        entity.setStatusJob(statusJobRepository.getById(dto.getStatusJobId()));
+        entity.setJobPosition(jobPositionRepository.getById(dto.getJobPositionId()));
+        entity.setAcademicLevel(academicLevelRepository.getById(dto.getAcademicLevelId()));
+        entity.setContact(userRepository.getById(dto.getContactId()));
+        entity.setCreater(userRepository.getById(dto.getCreatorId()));
+        entity.setUpdateUser(userRepository.getById(dto.getUpdateUserId()));
+//        entity.setName(dto.getName());
+//        entity.setNumberExperience(dto.getNumberExperience());
+//        entity.setAddressWork(dto.getAddressWork());
+//        entity.setQtyPerson(dto.getQtyPerson());
+//        entity.setStartRecruitmentDate(dto.getStartRecruitmentDate());
+//        entity.setDueDate(dto.getDueDate());
+//        entity.setSkills(dto.getSkills());;
+//        entity.setDescription(dto.getDescription());
+//        entity.setJobRequirement(dto.getJobRequirement());
+//        entity.setSalaryMax(dto.getSalaryMax());
+//        entity.setSalaryMin(dto.getSalaryMin());
+//        entity.setUpdateDate(dto.getUpdateDate());
+//        entity.setViews((dto.getViews()));
+
         return entity;
     }
 

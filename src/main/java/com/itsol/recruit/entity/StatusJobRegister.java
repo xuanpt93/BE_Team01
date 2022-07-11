@@ -1,4 +1,5 @@
 package com.itsol.recruit.entity;
+import lombok.Data;
 import lombok.Getter;
 import org.hibernate.annotations.Type;
 
@@ -7,6 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @Getter
+
 public class StatusJobRegister implements Serializable {
     @Id
     @Column(nullable = false)

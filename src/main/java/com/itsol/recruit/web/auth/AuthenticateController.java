@@ -2,26 +2,22 @@ package com.itsol.recruit.web.auth;
 
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.UserDTO;
+import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.entity.User;
-import com.itsol.recruit.security.jwt.JWTFilter;
-import com.itsol.recruit.security.jwt.JWTTokenResponse;
-import com.itsol.recruit.security.jwt.TokenProvider;
+import com.itsol.recruit.repository.OTPRepository;
 import com.itsol.recruit.service.AuthenticateService;
 import com.itsol.recruit.service.UserService;
 import com.itsol.recruit.web.vm.LoginVM;
 import io.swagger.annotations.Api;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.Collections;
+import java.util.Date;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.AUTH)
@@ -31,22 +27,32 @@ public class AuthenticateController {
 
     private final AuthenticateService authenticateService;
 
-    private final AuthenticationManagerBuilder authenticationManagerBuilder;
-
     private final UserService userService;
 
-    private final TokenProvider tokenProvider;
+    @Autowired
+    OTPRepository otpRepository;
 
-    public AuthenticateController(AuthenticateService authenticateService, AuthenticationManagerBuilder authenticationManagerBuilder, UserService userService, TokenProvider tokenProvider) {
+    public AuthenticateController(AuthenticateService authenticateService, UserService userService) {
         this.authenticateService = authenticateService;
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
+
         this.userService = userService;
-        this.tokenProvider = tokenProvider;
+
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<User> signup(@Valid @RequestBody UserDTO dto) {
-        return ResponseEntity.ok().body(authenticateService.signup(dto));
+    public ResponseEntity<?> signup(@Valid @RequestBody UserDTO dto) {
+
+        if (userService.findUserByUserName(dto.getUserName()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Username đã tồn tại", ""));
+        } else if (userService.findUserByEmail(dto.getEmail()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Email đã tồn tại", ""));
+        } else if (userService.findByPhonenumber(dto.getPhoneNumber()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Phone đã tồn tại", ""));
+        }
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "Đăng kí thành công", authenticateService.signup(dto)));
     }
 
     /*
@@ -54,21 +60,21 @@ public class AuthenticateController {
      */
     @PostMapping("/login")
     public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginVM loginVM) {
-//		Tạo chuỗi authentication từ username và password (object LoginRequest
-//		- file này chỉ là 1 class bình thường, chứa 2 trường username và password)
-        UsernamePasswordAuthenticationToken authenticationString = new UsernamePasswordAuthenticationToken(
-                loginVM.getUserName(),
-                loginVM.getPassword()
-        );
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationString);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = tokenProvider.createToken(authentication, loginVM.getRememberMe());
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, String.format("Bearer %s", jwt));
-//        return new ResponseEntity<>(Collections.singletonMap("token", jwt), httpHeaders, HttpStatus.OK); //Trả về chuỗi jwt(authentication string)
 
-        User userLogin = userService.findUserByUserName(loginVM.getUserName());
-        return ResponseEntity.ok().body(new JWTTokenResponse(jwt, userLogin)); //Trả về chuỗi jwt(authentication string)
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        User user =userService.findUserByUserName(loginVM.getUserName());
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Tài khoản không tồn tại", ""));
+        } else if (!passwordEncoder.matches(loginVM.getPassword(), userService.findUserByUserName(loginVM.getUserName()).getPassword())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Sai thông tin mật khẩu", ""));
+        } else if (user.isActive() == false) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                    new ResponseObject(HttpStatus.UNAUTHORIZED, "Tài khoản chưa active", ""));
+        }
+        return ResponseEntity.ok().body(authenticateService.login(loginVM));
 
     }
 
@@ -80,14 +86,26 @@ public class AuthenticateController {
 
     @PreAuthorize("permitAll()")
     @PostMapping("/opt-generaing")
-    public ResponseEntity<?> sendOtpToEmail(@RequestParam("email") String email) {
-        authenticateService.sendOtpToGmail(email);
-        return ResponseEntity.ok().body("ok");
+    public ResponseEntity<ResponseObject> sendOtpToEmail(@RequestParam("email") String email) {
+        if (userService.findUserByEmail(email) == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Email không tồn tại", ""));
+        }
+        return ResponseEntity.ok().body(
+                new ResponseObject(HttpStatus.OK, "Gửi Otp thành công", authenticateService.sendOtpToGmail(email)));
     }
+
     @PreAuthorize("permitAll()")
     @PostMapping("/newPass-setting")
-    public ResponseEntity<?> resetPassword(@RequestParam("opt") String optGen, @RequestParam("newpass") String newpass) {
-        authenticateService.takeNewPassword(optGen, newpass);
-        return ResponseEntity.ok().body("ok");
+    public ResponseEntity<?> resetPassword(@RequestParam("opt") String optGen, @RequestParam("password") String password) {
+        if (otpRepository.findByCode(optGen) == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Otp không đúng!", ""));
+        } else if (otpRepository.findByCode(optGen).getIssueAt() < new Date().getTime()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Otp này đã hết hạn!", ""));
+        }
+        authenticateService.takeNewPassword(optGen, password);
+        return ResponseEntity.ok().body(HttpStatus.OK);
     }
 }

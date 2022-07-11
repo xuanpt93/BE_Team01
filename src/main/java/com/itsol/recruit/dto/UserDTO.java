@@ -1,19 +1,31 @@
 package com.itsol.recruit.dto;
 
+import com.itsol.recruit.validation.EmailDuplicateValidation;
+import com.itsol.recruit.validation.EmailFormatValidation;
+import com.itsol.recruit.validation.PasswordlFormatValidation;
+import com.itsol.recruit.validation.UsernameDuplicateValidation;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
 public class UserDTO {
 
+
     String fullName;
 
+    @NotNull
+    @EmailFormatValidation
     String email;
 
+    @NotNull
     String userName;
 
+    @NotNull
+    @PasswordlFormatValidation
     String password;
 
     String phoneNumber;
@@ -24,9 +36,11 @@ public class UserDTO {
 
     String gender;
 
+    @NotNull
+    @PasswordlFormatValidation
     String newPassword;
 
-    Date birthDay;
-
     String name;
+
+    Date birthDay;
 }
