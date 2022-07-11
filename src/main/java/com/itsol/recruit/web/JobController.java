@@ -3,6 +3,7 @@ package com.itsol.recruit.web;
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.JobDTO;
 import com.itsol.recruit.entity.Job;
+import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.impl.JobServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -47,10 +48,14 @@ public class JobController {
         return ResponseEntity.ok().body("successfull");
     }
 
-    @PutMapping("/job/update/{id}")
-    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody JobDTO jobDTO) {
-        jobService.updateById(jobDTO, id);
-        return ResponseEntity.ok().body("successfull");
+    @PutMapping("/job/update")
+    public ResponseEntity<ResponseObject> updateCategory(@RequestBody JobDTO jobDTO) {
+        Job job = jobService.updateById(jobDTO);
+        if(job == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Job không tồn tại", ""));
+        }
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "Cập nhật Job thành công", jobService.updateById(jobDTO)));
     }
 }
 

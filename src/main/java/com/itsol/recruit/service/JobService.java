@@ -16,5 +16,7 @@ public interface JobService {
 
     void deleteById(Long id);
 
-    Job updateById(JobDTO jobDTO, Long id);
+    Job updateById(JobDTO jobDTO);
+
+//    Job findJobByName(String jobName);
 }

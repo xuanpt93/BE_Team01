@@ -46,14 +46,24 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public Job updateById(JobDTO jobDTO, Long id) {
-    Job job = jobMapper.toEntity(jobDTO);
-    job.setId(id);
-        return jobRepository.save(job);
+    public Job updateById(JobDTO jobDTO) {
+        Optional<Job> jobOptional = jobRepository.findById(jobDTO.getId());
+        if (jobOptional.isPresent()){
+        Job job = jobMapper.toEntity(jobDTO);
+        jobRepository.save(job);
+        job.setId(jobDTO.getId());
+        return jobOptional.get();
+    }
+        return null;
     }
 
     @Override
     public void deleteById(Long id) {
         jobRepository.deleteById(id);
     }
+
+    /*@Override
+    public Job findJobByName(String jobName) {
+        return jobRepository.findJobByName(jobName);
+    }*/
 }
