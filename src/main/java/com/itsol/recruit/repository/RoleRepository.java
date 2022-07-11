@@ -7,4 +7,6 @@ import java.util.Set;
 
 public interface RoleRepository extends JpaRepository<Role, Long> {
     Set<Role> findByCode(String code);
+
+
 }

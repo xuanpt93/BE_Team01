@@ -46,6 +46,13 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    public Job updateById(JobDTO jobDTO, Long id) {
+    Job job = jobMapper.toEntity(jobDTO);
+    job.setId(id);
+        return jobRepository.save(job);
+    }
+
+    @Override
     public void deleteById(Long id) {
         jobRepository.deleteById(id);
     }

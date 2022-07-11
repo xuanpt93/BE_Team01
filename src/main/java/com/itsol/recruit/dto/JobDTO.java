@@ -3,6 +3,9 @@ package com.itsol.recruit.dto;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+//import javax.validation.constraints.NotBlank;
+//import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
@@ -11,6 +14,8 @@ import java.util.Date;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class JobDTO {
 
+    @NonNull
+    Long id;
     @NonNull
     String name;
 
@@ -24,6 +29,7 @@ public class JobDTO {
     Long workingFormId;
 
     @NonNull
+    @Size(max = 300)
     String addressWork;
 
     @NonNull
@@ -43,6 +49,7 @@ public class JobDTO {
 
     String skills;
 
+    @Size(max = 2000)
     String description;
 
     String benefits;

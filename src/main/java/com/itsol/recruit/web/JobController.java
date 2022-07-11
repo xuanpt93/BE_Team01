@@ -5,6 +5,7 @@ import com.itsol.recruit.dto.JobDTO;
 import com.itsol.recruit.entity.Job;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.impl.JobServiceImpl;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,7 @@ public class JobController {
     }
 
     @GetMapping("/job")
-    public ResponseEntity<List<Job>> getAllDESC() {
+    public ResponseEntity<List<Job>> getAllASC() {
         return ResponseEntity.ok().body(jobService.getAllJob());
     }
 
@@ -41,8 +42,15 @@ public class JobController {
     }
 
     @DeleteMapping("/job/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         jobService.deleteById(id);
         return ResponseEntity.ok().body("successfull");
     }
+
+    @PutMapping("/job/update/{id}")
+    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody JobDTO jobDTO) {
+        jobService.updateById(jobDTO, id);
+        return ResponseEntity.ok().body("successfull");
+    }
 }
+

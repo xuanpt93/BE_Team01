@@ -14,6 +14,8 @@ import java.util.Date;
 public class JobRegisterDTO {
 
     @NotNull
+    Long id;
+    @NotNull
     String addressInterview;
     @NotNull
     String cvFile;
