@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isExistedUser(String userName) {
+    public boolean isExistedUser(String userName){
         if (userRepository.findByUserName(userName) != null) {
             return true;
         }
@@ -95,6 +95,11 @@ public class UserServiceImpl implements UserService {
         return otpStr;
 
 
+    }
+
+    @Override
+    public User findByPhonenumber(String phone) {
+        return userRepository.findUserByPhoneNumber(phone);
     }
 
 

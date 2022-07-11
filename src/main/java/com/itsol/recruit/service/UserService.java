@@ -23,4 +23,6 @@ public interface UserService {
 
     String generateOTP(User user);
 
+    User findByPhonenumber(String phone);
+
 }

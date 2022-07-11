@@ -11,7 +11,9 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Configuration
@@ -40,6 +42,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
             return;
         }
         if (userRepository.findByUserName("admin") == null) {
+            setdataRole();
             Set<Role> adminRole = roleRepository.findByCode("ROLE_ADMIN");
             User user = new User();
             user.setUserName("admin");
@@ -57,5 +60,25 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         else{
             alreadySetup = true;
         }
+    }
+    public  void setdataRole(){
+        List<Role> roles = new ArrayList<>();
+        Role role = new Role();
+        role.setCode("ROLE_ADMIN");
+        role.setDescription("ROLE_ADMIN");
+        role.setDelete(false);
+        roles.add(role);
+        role = new Role();
+        role.setCode("ROLE_JE");
+        role.setDescription("ROLE_JE");
+        role.setDelete(false);
+        roles.add(role);
+        role = new Role();
+        role.setCode("ROLE_USER");
+        role.setDescription("ROLE_USER");
+        role.setDelete(false);
+
+        roles.add(role);
+        roleRepository.saveAll(roles);
     }
 }
