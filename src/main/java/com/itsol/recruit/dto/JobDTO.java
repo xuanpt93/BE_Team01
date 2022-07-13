@@ -1,5 +1,7 @@
 package com.itsol.recruit.dto;
 
+import com.itsol.recruit.entity.*;
+import javafx.print.PrinterJob;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -16,27 +18,29 @@ public class JobDTO {
 
     @NonNull
     Long id;
+
     @NonNull
+    @Size(max = 150)
     String name;
 
     @NonNull
-    Long jobPositionId;
+    JobPosition jobPosition;
 
     @NonNull
     Integer numberExperience;
 
     @NonNull
-    Long workingFormId;
+    WorkingForm workingForm;
 
     @NonNull
     @Size(max = 300)
     String addressWork;
 
     @NonNull
-    Long academicLevelId;
+    AcademicLevel academicLevel;
 
     @NonNull
-    Long rankId;
+    Rank rank;
 
     @NonNull
     Integer qtyPerson;
@@ -63,20 +67,20 @@ public class JobDTO {
     Integer salaryMin;
 
     @NonNull
-    Long contactId;
+    User contact;
 
-    Long creatorId;
+    User creater;
 
     Date createDate;
 
     @NonNull
-    Long updateUserId;
+    User updateUser;
 
     @NonNull
     Date updateDate;
 
     @NonNull
-    Long statusJobId;
+    StatusJob statusJob;
 
     @NonNull
     Integer views;

@@ -1,5 +1,6 @@
 package com.itsol.recruit.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,9 +30,11 @@ public class JobRegister{
     private User user;
 
     @Column(name = "date_register")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date dateRegister;
 
     @Column(name = "date_interview")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date dateInterview;
 
     @Column(name = "method_interview")
