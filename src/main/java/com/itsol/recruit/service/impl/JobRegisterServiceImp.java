@@ -55,6 +55,7 @@ public class JobRegisterServiceImp implements JobRegisterService {
         return null;
     }
 
+
     @Override
     public void deleteById(Long id) {
         jobRegisterRepository.deleteById(id);
@@ -69,5 +70,19 @@ public class JobRegisterServiceImp implements JobRegisterService {
     }
     public Page<JobRegisterDTO> findAlD(Pageable pageable){
         return (Page<JobRegisterDTO>) jobRegisterRepository.findAll((Sort) pageable).stream().map(jobRegisterMapper::toDto);
+    }
+
+    /*
+     * trungnd
+     */
+
+    @Override
+    public int countAll() {
+        return jobRegisterRepository.countAll();
+    }
+
+    @Override
+    public int countJobRegByStatus(Long statusId, String smallDate, String bigDate) {
+        return jobRegisterRepository.countJobRegisterByStatus(statusId, smallDate,  bigDate);
     }
 }

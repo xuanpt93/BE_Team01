@@ -52,8 +52,40 @@ public class JobServiceImpl implements JobService {
         return jobRepository.save(job);
     }
 
+
     @Override
     public void deleteById(Long id) {
         jobRepository.deleteById(id);
     }
+    /*
+    *Chinhnd
+    * Them moi
+     */
+
+    @Override
+    public int countJobPublished() {
+        return jobRepository.countJobPublished();
+    }
+
+    @Override
+    public int countAllJobDueSoon() {
+        return jobRepository.countAllJobDueSoon();
+    }
+
+    @Override
+    public int countViewjob() {
+        return jobRepository.countViewJob();
+    }
+
+    @Override
+    public int countJobNeedManStepMonth(int month) {
+        try {
+            return jobRepository.countJobNeedManStepMonth(month);
+        } catch(Exception e){
+            return 0;
+
+        }
+    }
+
+
 }

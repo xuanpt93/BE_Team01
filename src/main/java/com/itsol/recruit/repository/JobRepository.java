@@ -1,10 +1,9 @@
 package com.itsol.recruit.repository;
 
-import com.itsol.recruit.dto.JobDTO;
 import com.itsol.recruit.entity.Job;
-import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.repoext.JobRepositoryExt;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -20,4 +19,24 @@ public interface JobRepository extends JpaRepository<Job, Long>, JobRepositoryEx
     Optional<Job> findById(Long id);
 
 //    void deleteById(Long id);
+
+    /*
+    * chinhnd
+     */
+
+    @Query(value = "select count(*)  from job b", nativeQuery = true)
+    int countJobPublished();
+
+    @Query(value = "select count(*) from job j \n" +
+            "where (select extract(day from sysdate) \n" +
+            "- EXTRACT(day from j.due_date) from dual) <= 7", nativeQuery = true)
+    int countAllJobDueSoon();
+
+    @Query(value = "select count(j.views) from job j", nativeQuery = true)
+    int countViewJob();
+
+    @Query(value = "select sum(qty_person) from job " +
+            "where job.status_id = 1 " +
+            "and extract(month from job.START_RECRUITMENT_DATE) = :param", nativeQuery = true)
+    int countJobNeedManStepMonth(int param);
 }
