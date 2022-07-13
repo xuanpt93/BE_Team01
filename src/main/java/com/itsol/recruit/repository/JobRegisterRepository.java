@@ -2,7 +2,6 @@ package com.itsol.recruit.repository;
 
 import com.itsol.recruit.entity.JobRegister;
 import com.itsol.recruit.repository.repoext.JobRegisterRepositoryExt;
-import com.itsol.recruit.repository.repoext.JobRepositoryExt;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
