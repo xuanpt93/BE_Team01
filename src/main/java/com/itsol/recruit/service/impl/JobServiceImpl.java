@@ -1,11 +1,16 @@
 package com.itsol.recruit.service.impl;
 
 import com.itsol.recruit.dto.JobDTO;
+import com.itsol.recruit.dto.JobRegisterDTO;
 import com.itsol.recruit.entity.Job;
 import com.itsol.recruit.repository.JobRepository;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.mapper.JobMapper;
+import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

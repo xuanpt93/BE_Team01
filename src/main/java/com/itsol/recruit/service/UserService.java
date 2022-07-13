@@ -29,7 +29,7 @@ public interface UserService {
 
     User findByPhonenumber(String phone);
 
-    Page<UserDTO> getAllUsers(PageVM pageVM, String search,String sortBy);
+    Page<UserDTO>getAllUsers(PageVM pageVM, String search,String sortBy);
 
     void deActiveUser(String username);
 

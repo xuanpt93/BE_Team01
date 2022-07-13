@@ -5,12 +5,14 @@ import com.itsol.recruit.entity.JobRegister;
 import com.itsol.recruit.repository.JobRegisterRepository;
 import com.itsol.recruit.service.JobRegisterService;
 import com.itsol.recruit.service.mapper.JobRegisterMapper;
+import com.itsol.recruit.specification.JobRegisterSpecification;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -26,9 +28,12 @@ public class JobRegisterServiceImp implements JobRegisterService {
     public JobRegisterRepository jobRegisterRepository;
 
     @Override
-    public  Page<JobRegisterDTO> getAllJobRegister(PageVM pageVM) {
+    public  Page<JobRegisterDTO> getAllJobRegister(PageVM pageVM, String search, String sortBy) {
         Pageable firstPageable = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
-        return jobRegisterRepository.findAllOrderByDateAsc(firstPageable).map(jobRegisterMapper::toDto);
+        Specification<JobRegister> where = JobRegisterSpecification.buildWhere(search);
+        return jobRegisterRepository.findAllOrderByDateAsc(firstPageable,where).map(jobRegisterMapper::toDto);
+
+
     }
 
     @Override

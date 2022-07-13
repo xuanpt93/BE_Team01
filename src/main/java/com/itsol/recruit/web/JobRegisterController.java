@@ -32,8 +32,9 @@ public class JobRegisterController  {
     private JobRegisterMapper jobRegisterMapper;
 
     @PostMapping("/job_register")
-    public ResponseEntity<List<JobRegisterDTO>> getAllDESC(@RequestBody PageVM pageVM){
-        Page<JobRegisterDTO> page = jobRegisterService.getAllJobRegister(pageVM);
+    public ResponseEntity<List<JobRegisterDTO>> getAllDESC(@RequestBody PageVM pageVM ,@RequestParam(value = "search", required = false ) String search, @RequestParam(value = "sortBy", required = false) String sortBy){
+
+        Page<JobRegisterDTO> page = jobRegisterService.getAllJobRegister(pageVM, search, sortBy);
         return ResponseEntity.ok().body(page.getContent());
     }
 
@@ -45,9 +46,6 @@ public class JobRegisterController  {
     public ResponseEntity<?>add(@Valid @RequestBody JobRegisterDTO dto){
         jobRegisterService.addJobRegister(dto);
         return ResponseEntity.ok().body("OK");
-
-
-
     }
     @DeleteMapping("/job_register/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){

@@ -10,11 +10,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface JobRegisterService {
-    Page<JobRegisterDTO> getAllJobRegister(PageVM pageVM);
+    Page<JobRegisterDTO> getAllJobRegister(PageVM pageVM, String search, String sortBy);
     Optional<JobRegister> findById(Long id);
     JobRegister addJobRegister(JobRegisterDTO dto);
     void deleteById(Long id);
     JobRegister updateById(JobRegisterDTO jobRegisterDTO);
 
     JobRegisterDTO save(JobRegisterDTO jobRegisterDTO);
+
 }

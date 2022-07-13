@@ -1,6 +1,10 @@
 package com.itsol.recruit.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.JsonSerializer;
+import com.itsol.recruit.entity.Job;
+import com.itsol.recruit.entity.StatusJobRegister;
+import com.itsol.recruit.entity.User;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,19 +24,21 @@ public class JobRegisterDTO {
     @NotNull
     String cvFile;
     @NotNull
-    Date dateInterview;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    Date dateInterview ;
     @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     Date dateRegister;
     @NotNull
-    Long jobRegisterId;
+    Job job;
     @NotNull
     String mediaType;
     @NotNull
     String methodInterview;
     @NotNull
-    Long userId;
+    User user;
     @NotNull
-    Long statusJobRegisterId;
+    StatusJobRegister statusJobRegister;
 
 
 
