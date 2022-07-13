@@ -2,10 +2,19 @@ package com.itsol.recruit.service.impl;
 
 import com.itsol.recruit.dto.JobDTO;
 import com.itsol.recruit.entity.Job;
+import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.JobRepository;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.mapper.JobMapper;
+import com.itsol.recruit.specification.JobSpecification;
+import com.itsol.recruit.specification.UserSpecification;
+import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -62,8 +71,20 @@ public class JobServiceImpl implements JobService {
         jobRepository.deleteById(id);
     }
 
-    /*@Override
+    @Override
     public Job findJobByName(String jobName) {
         return jobRepository.findJobByName(jobName);
-    }*/
+    }
+
+    @Override
+    public Page<JobDTO> getAllJobs(PageVM pageVM, String search, String sortBy) {
+        Pageable firstPageWithTwoElements;
+        if(sortBy == null){
+            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
+        }else {
+            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize(), Sort.by(sortBy));
+        }
+        Specification<Job> where = JobSpecification.buildWhere(search);
+        return  jobRepository.findAll(where, firstPageWithTwoElements).map(jobMapper::toDto);
+    }
 }

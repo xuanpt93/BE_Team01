@@ -6,14 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="f3a9a751-07b9-4acc-9920-d4451441df1f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRegisterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRegisterRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/dto/JobDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/dto/JobDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/repoext/JobRepositoryExt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/repoimpl/JobRepositoryImpl.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/JobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/JobService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/JobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/JobServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/mapper/JobMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/mapper/JobMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/JobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/JobController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/JobRegisterRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/JobRegisterRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/dto/JobDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/dto/JobDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/JobRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/JobRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/JobService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/JobService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/JobServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/JobServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/mapper/JobMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/mapper/JobMapper.class" afterDir="false" />
@@ -27,8 +27,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -130,6 +130,10 @@
       <workItem from="1657337830546" duration="11975000" />
       <workItem from="1657385364041" duration="4356000" />
       <workItem from="1657452968942" duration="1874000" />
+      <workItem from="1657543904447" duration="4931000" />
+      <workItem from="1657549374157" duration="13451000" />
+      <workItem from="1657591113794" duration="12949000" />
+      <workItem from="1657651119008" duration="1333000" />
     </task>
     <servers />
   </component>
