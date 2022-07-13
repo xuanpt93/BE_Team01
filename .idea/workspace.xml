@@ -4,30 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e52b96c8-314a-4e39-9a3d-fc264d0143fd" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/specification/CustomSpecificationJob.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/specification/JobSpecification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/specification/CustomSpecificationJob.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/specification/JobSpecification.class" afterDir="false" />
+    <list default="true" id="f3a9a751-07b9-4acc-9920-d4451441df1f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/dto/JobDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/dto/JobDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/entity/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRegisterRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRegisterRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/repoext/JobRepositoryExt.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/repoimpl/JobRepositoryImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/JobRegisterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/JobRegisterService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/JobService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/JobService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/JobRegisterServiceImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/JobRegisterServiceImp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/JobServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/JobServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/mapper/JobMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/mapper/JobMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/service/impl/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/JobController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/JobController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/dto/JobDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/dto/JobDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/JobRegisterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/itsol/recruit/web/JobRegisterController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/dto/UserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/entity/User$UserBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/entity/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/JobRegisterRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/JobRegisterRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/JobRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/JobRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/repoext/JobRepositoryExt.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/repoimpl/JobRepositoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/JobRegisterService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/JobRegisterService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/JobService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/JobService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/JobRegisterServiceImp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/JobRegisterServiceImp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/JobServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/JobServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/impl/UserServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/mapper/JobMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/service/mapper/JobMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/web/JobController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/web/JobController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/itsol/recruit/web/JobRegisterController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/itsol/recruit/web/JobRegisterController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +175,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/itsol/recruit/repository/JobRegisterRepository.java</url>
-          <line>26</line>
+          <line>22</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">

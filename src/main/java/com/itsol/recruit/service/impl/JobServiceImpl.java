@@ -1,13 +1,10 @@
 package com.itsol.recruit.service.impl;
-
 import com.itsol.recruit.dto.JobDTO;
 import com.itsol.recruit.entity.Job;
-import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.JobRepository;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.mapper.JobMapper;
 import com.itsol.recruit.specification.JobSpecification;
-import com.itsol.recruit.specification.UserSpecification;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;

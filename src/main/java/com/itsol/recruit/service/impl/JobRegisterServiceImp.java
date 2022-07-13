@@ -1,41 +1,39 @@
 package com.itsol.recruit.service.impl;
 
 import com.itsol.recruit.dto.JobRegisterDTO;
-import com.itsol.recruit.entity.Job;
 import com.itsol.recruit.entity.JobRegister;
-import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.JobRegisterRepository;
-import com.itsol.recruit.repository.JobRepository;
-import com.itsol.recruit.repository.UserRepository;
 import com.itsol.recruit.service.JobRegisterService;
 import com.itsol.recruit.service.mapper.JobRegisterMapper;
+import com.itsol.recruit.specification.JobRegisterSpecification;
+import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import javax.print.attribute.standard.JobStateReason;
 import javax.transaction.Transactional;
-import java.awt.print.Pageable;
-import java.util.List;
 import java.util.Optional;
 @Service
 @Transactional
 
 public class JobRegisterServiceImp implements JobRegisterService {
+
+    @Autowired
+    public JobRegisterMapper jobRegisterMapper;
     @Autowired
     public JobRegisterRepository jobRegisterRepository;
-    @Autowired
-    JobRegisterMapper jobRegisterMapper;
-    @Autowired
-    public UserRepository userRepository;
-    @Autowired
-
 
     @Override
-    public List<JobRegister> getAllJobRegister() {
-        return jobRegisterRepository.findAllOrderByDateAsc();
+    public  Page<JobRegisterDTO> getAllJobRegister(PageVM pageVM, String search, String sortBy) {
+        Pageable firstPageable = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
+        Specification<JobRegister> where = JobRegisterSpecification.buildWhere(search);
+        return jobRegisterRepository.findAllOrderByDateAsc(firstPageable,where).map(jobRegisterMapper::toDto);
+
+
     }
 
     @Override
@@ -62,11 +60,15 @@ public class JobRegisterServiceImp implements JobRegisterService {
     }
 
     @Override
-    public void updateById(JobRegisterDTO jobRegisterDTO, Long id) {
-
-        JobRegister jobRegister = jobRegisterMapper.toEntity(jobRegisterDTO);
-        jobRegister.setId(id);
-        jobRegisterRepository.save(jobRegister);
+    public JobRegister updateById(JobRegisterDTO jobRegisterDTO) {
+        Optional<JobRegister> jobRegisterOptional = jobRegisterRepository.findById(jobRegisterDTO.getId());
+        if (jobRegisterOptional.isPresent()){
+            JobRegister jobRegister = jobRegisterMapper.toEntity(jobRegisterDTO);
+            jobRegisterRepository.save(jobRegister);
+            jobRegister.setId(jobRegisterDTO.getId());
+            return jobRegisterOptional.get();
+        }
+        return null;
     }
     public Page<JobRegisterDTO> findAlD(Pageable pageable){
         return (Page<JobRegisterDTO>) jobRegisterRepository.findAll((Sort) pageable).stream().map(jobRegisterMapper::toDto);
