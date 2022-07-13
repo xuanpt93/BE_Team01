@@ -1,5 +1,6 @@
 package com.itsol.recruit.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.itsol.recruit.validation.EmailDuplicateValidation;
 import com.itsol.recruit.validation.EmailFormatValidation;
 import com.itsol.recruit.validation.PasswordlFormatValidation;
@@ -42,5 +43,8 @@ public class UserDTO {
 
     String name;
 
+    boolean isActive;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     Date birthDay;
 }

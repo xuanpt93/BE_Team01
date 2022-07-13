@@ -14,4 +14,11 @@ public interface JobRegisterService {
     void updateById(JobRegisterDTO jobRegisterDTO, Long id);
 
     JobRegisterDTO save(JobRegisterDTO jobRegisterDTO);
+
+    /*
+     * trungnd
+     */
+    int countAll();
+
+    int countJobRegByStatus(Long statusId,String smallDate, String bigDate);
 }

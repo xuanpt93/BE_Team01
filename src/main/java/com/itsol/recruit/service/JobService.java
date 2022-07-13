@@ -17,4 +17,16 @@ public interface JobService {
     void deleteById(Long id);
 
     Job updateById(JobDTO jobDTO, Long id);
+
+    /*
+    *chinhnd
+     */
+
+    int countJobPublished();
+
+    int countAllJobDueSoon();
+
+    int countViewjob();
+
+    int countJobNeedManStepMonth(int month);
 }

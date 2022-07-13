@@ -3,6 +3,7 @@ package com.itsol.recruit.web;
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.JobDTO;
 import com.itsol.recruit.entity.Job;
+import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.impl.JobServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -52,5 +53,31 @@ public class JobController {
         jobService.updateById(jobDTO, id);
         return ResponseEntity.ok().body("successfull");
     }
+
+    /*
+    * chinhnd
+     */
+
+    @GetMapping("job/publishing")
+    public int countJobPublish(){
+        return jobService.countJobPublished();
+    }
+
+    @GetMapping("job/jobDueSoon")
+    public int countAllJobDueSoon(){
+        return jobService.countAllJobDueSoon();
+    }
+
+    @GetMapping("job/views")
+    public int countViewsJob(){
+        return jobService.countViewjob();
+    }
+
+    @GetMapping("job/needs/month")
+    public int countJobNeeds(@RequestParam("month") int month){
+        return jobService.countJobNeedManStepMonth(month);
+    }
+
+
 }
 
