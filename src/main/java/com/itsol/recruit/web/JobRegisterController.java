@@ -60,16 +60,4 @@ public class JobRegisterController  {
     }
 
 
-//    @GetMapping("/page")
-//    public ResponseEntity<List<JobRegisterDTO>> getall(Pageable pageable){
-//        Page<JobRegisterDTO>  jobRegisterDTOPage = jobRegisterService.findAlD(pageable);
-//        return ResponseEntity.ok().body(jobRegisterDTOPage.getContent());
-//    }
-//
-//    @GetMapping("/page1")
-//    public Page<JobRegisterDTO> getAllItemCategoryByPage(@RequestParam("page") int pageIndex,
-//                                                       @RequestParam("size") int pageSize){
-//
-//        return jobRegisterService.findAlD((Pageable) PageRequest.of(pageIndex, pageSize)).getContent();
-
 }

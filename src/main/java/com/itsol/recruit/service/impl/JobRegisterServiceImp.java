@@ -2,10 +2,12 @@ package com.itsol.recruit.service.impl;
 
 import com.itsol.recruit.dto.JobRegisterDTO;
 import com.itsol.recruit.entity.JobRegister;
+import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.JobRegisterRepository;
 import com.itsol.recruit.service.JobRegisterService;
 import com.itsol.recruit.service.mapper.JobRegisterMapper;
 import com.itsol.recruit.specification.JobRegisterSpecification;
+import com.itsol.recruit.specification.UserSpecification;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -29,10 +31,18 @@ public class JobRegisterServiceImp implements JobRegisterService {
 
     @Override
     public  Page<JobRegisterDTO> getAllJobRegister(PageVM pageVM, String search, String sortBy) {
-        Pageable firstPageable = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
-        Specification<JobRegister> where = JobRegisterSpecification.buildWhere(search);
-        return jobRegisterRepository.findAllOrderByDateAsc(firstPageable,where).map(jobRegisterMapper::toDto);
+//        Pageable firstPageable = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
+//        Specification<JobRegister> where = JobRegisterSpecification.buildWhere(search);
+//        return jobRegisterRepository.findAllOrderByDateAsc(firstPageable,where).map(jobRegisterMapper::toDto);
 
+        Pageable firstPageWithTwoElements;
+        if(sortBy == null){
+            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
+        }else {
+            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize(), Sort.by(sortBy));
+        }
+        Specification<JobRegister> where = JobRegisterSpecification.buildWhere(search);
+        return  jobRegisterRepository.findAllOrderByDateAsc(firstPageWithTwoElements, where).map(jobRegisterMapper::toDto);
 
     }
 
