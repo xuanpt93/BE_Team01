@@ -1,10 +1,13 @@
 package com.itsol.recruit.service.impl;
 import com.itsol.recruit.dto.JobDTO;
-import com.itsol.recruit.entity.Job;
-import com.itsol.recruit.repository.JobRepository;
+import com.itsol.recruit.dto.ReasonDTO;
+import com.itsol.recruit.dto.StatusJobDTO;
+import com.itsol.recruit.entity.*;
+import com.itsol.recruit.repository.*;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.mapper.JobMapper;
 import com.itsol.recruit.specification.JobSpecification;
+import com.itsol.recruit.web.vm.JobFieldVM;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,10 +30,28 @@ public class JobServiceImpl implements JobService {
     }*/
 
     @Autowired
-    public  JobRepository jobRepository;
+    JobRepository jobRepository;
 
     @Autowired
     JobMapper jobMapper;
+
+    @Autowired
+    StatusJobRepository statusJobRepository;
+
+    @Autowired
+    JobPositionRepository jobPositionRepository;
+
+    @Autowired
+    WorkingFormRepository workingFormRepository;
+
+    @Autowired
+    AcademicLevelRepository academicLevelRepository;
+
+    @Autowired
+    RankRepository rankRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public List<Job> getAllJob() {
@@ -62,16 +83,25 @@ public class JobServiceImpl implements JobService {
         return null;
     }
 
+    @Override
+    public Job updateStatus(StatusJobDTO statusJobDTO) {
+        Job job = jobRepository.findById(statusJobDTO.getJobId()).get();
+        job.setStatusJob(statusJobRepository.findStatusById(statusJobDTO.getStatusId()));
+        return jobRepository.save(job);
+    }
+
+    @Override
+    public Job updateReason(ReasonDTO reasonDTO) {
+        Job job = jobRepository.findById(reasonDTO.getJobId()).get();
+        job.setReason(reasonDTO.getReason());
+        job.setStatusJob(statusJobRepository.findStatusById(reasonDTO.getStatusId()));
+        return jobRepository.save(job);
+    }
 
     @Override
     public void deleteById(Long id) {
         jobRepository.deleteById(id);
     }
-
-    /*
-    *Chinhnd
-    * Them moi
-     */
 
     @Override
     public int countJobPublished() {
@@ -94,10 +124,19 @@ public class JobServiceImpl implements JobService {
             return jobRepository.countJobNeedManStepMonth(month);
         } catch(Exception e){
             return 0;
-
         }
     }
 
+    @Override
+    public JobFieldVM getFieldSelect() {
+        List<JobPosition> jobPositionList = jobPositionRepository.findAll();
+        List<WorkingForm> workingFormList = workingFormRepository.findAll();
+        List<Rank> rankList = rankRepository.findAll();
+        List<AcademicLevel> academicLevelList = academicLevelRepository.findAll();
+        List<StatusJob> statusJobList = statusJobRepository.findAll();
+        List<User> userList = userRepository.findAll();
+        return new JobFieldVM(jobPositionList,workingFormList,academicLevelList,rankList,userList,statusJobList);
+    }
 
     @Override
     public Job findJobByName(String jobName) {
