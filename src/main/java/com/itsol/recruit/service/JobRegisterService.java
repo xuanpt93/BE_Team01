@@ -1,12 +1,11 @@
 package com.itsol.recruit.service;
 
 import com.itsol.recruit.dto.JobRegisterDTO;
-import com.itsol.recruit.dto.UserDTO;
+import com.itsol.recruit.dto.StatusJobRegisterDTO;
 import com.itsol.recruit.entity.JobRegister;
+import com.itsol.recruit.entity.StatusJobRegister;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.data.domain.Page;
-
-import java.util.List;
 import java.util.Optional;
 
 public interface JobRegisterService {
@@ -16,6 +15,14 @@ public interface JobRegisterService {
     void deleteById(Long id);
     JobRegister updateById(JobRegisterDTO jobRegisterDTO);
 
+    JobRegister updateStatusJobRegister(StatusJobRegisterDTO statusJobRegisterDTO);
     JobRegisterDTO save(JobRegisterDTO jobRegisterDTO);
+
+    /*
+     * trungnd
+     */
+    int countAll();
+
+    int countJobRegByStatus(Long statusId,String smallDate, String bigDate);
 
 }

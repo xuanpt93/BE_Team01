@@ -37,8 +37,8 @@ public class JobRegisterMapper implements EntityMapper<JobRegisterDTO, JobRegist
         BeanUtils.copyProperties(dto, entity);
         entity.setUser(userRepository.getById(dto.getUser().getId()));
         entity.setJob(jobRepository.getById(dto.getStatusJobRegister().getId()));
-        entity.setStatusJobRegister(statusJobRegister.getById(dto.getStatusJobRegister().getId()));
-
+        entity.setStatusJobRegister(statusJobRegister.findById(dto.getStatusJobRegister().getId()).get());
+        entity.setReason(jobRepository.getById(dto.getId()).getReason());
         return entity;
     }
 
@@ -61,4 +61,5 @@ public class JobRegisterMapper implements EntityMapper<JobRegisterDTO, JobRegist
     public List<JobRegisterDTO> toDto(List<JobRegister> entityList) {
         return entityList.stream().map(this::toDto).collect(Collectors.toList());
     }
+
 }

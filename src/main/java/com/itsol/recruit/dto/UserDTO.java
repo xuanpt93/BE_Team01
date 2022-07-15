@@ -43,6 +43,8 @@ public class UserDTO {
 
     String name;
 
+    boolean isActive;
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     Date birthDay;
 }

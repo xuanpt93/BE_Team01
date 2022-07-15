@@ -2,9 +2,13 @@ package com.itsol.recruit.web;
 
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.JobDTO;
+import com.itsol.recruit.dto.UserDTO;
 import com.itsol.recruit.entity.Job;
+import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.impl.JobServiceImpl;
+import com.itsol.recruit.web.vm.PageVM;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +37,12 @@ public class JobController {
     }
 
     @PostMapping("/job/add")
-    /*public ResponseEntity<Job> add(@Valid  @RequestBody JobDTO dto){
-        return ResponseEntity.ok().body(jobService.addJob(dto));
-    }*/
-    public ResponseEntity<?> add(@Valid @RequestBody JobDTO dto) {
-        jobService.addJob(dto);
-        return ResponseEntity.ok().body("successfull");
+    public ResponseEntity<ResponseObject> add(@Valid @RequestBody JobDTO jobDTO) {
+        if (jobService.findJobByName(jobDTO.getName()) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Job đã tồn tại", ""));
+        }
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "thêm mới job thành công", jobService.addJob(jobDTO)));
     }
 
     @DeleteMapping("/job/delete/{id}")
@@ -47,10 +51,48 @@ public class JobController {
         return ResponseEntity.ok().body("successfull");
     }
 
-    @PutMapping("/job/update/{id}")
-    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody JobDTO jobDTO) {
-        jobService.updateById(jobDTO, id);
-        return ResponseEntity.ok().body("successfull");
+    @PutMapping("/job/update")
+    public ResponseEntity<ResponseObject> updateCategory(@RequestBody JobDTO jobDTO) {
+        Job job = jobService.updateById(jobDTO);
+        if (job == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Job không tồn tại", ""));
+        }
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "Cập nhật Job thành công", jobService.updateById(jobDTO)));
     }
+
+    @PostMapping("/job/search")
+    public ResponseEntity<List<JobDTO>> getAllJobs(@RequestBody PageVM pageVM, @RequestParam(value = "search",
+            required = false) String search, @RequestParam(value = "sortBy",
+            required = false) String sortBy) {
+        Page<JobDTO> page = jobService.getAllJobs(pageVM, search, sortBy);
+        return ResponseEntity.ok().body(page.getContent());
+    }
+
+    /*
+    * chinhnd
+     */
+
+    @GetMapping("job/publishing")
+    public int countJobPublish(){
+        return jobService.countJobPublished();
+    }
+
+    @GetMapping("job/jobDueSoon")
+    public int countAllJobDueSoon(){
+        return jobService.countAllJobDueSoon();
+    }
+
+    @GetMapping("job/views")
+    public int countViewsJob(){
+        return jobService.countViewjob();
+    }
+
+    @GetMapping("job/needs/month")
+    public int countJobNeeds(@RequestParam("month") int month){
+        return jobService.countJobNeedManStepMonth(month);
+    }
+
+
 }
 

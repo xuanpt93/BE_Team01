@@ -128,13 +128,19 @@ public class UserServiceImpl implements UserService {
              firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize(), Sort.by(sortBy));
         }
         Specification<User> where = UserSpecification.buildWhere(search);
+
         return  userRepository.findAll(where, firstPageWithTwoElements).map(userMapper::toDto);
     }
 
     @Override
     public void deActiveUser(String username) {
         User user = userRepository.findByUserName(username);
-        user.setActive(false);
+        if(user.isActive() == true){
+            user.setActive(false);
+        }
+        else{
+            user.setActive(true);
+        }
         userRepository.save(user);
     }
 

@@ -13,9 +13,6 @@ import java.util.Optional;
 
 @Repository
 public interface StatusJobRegisterRepository extends JpaRepository<StatusJobRegister, Long> {
-    StatusJobRegister findByCode(String statusJobName);
-
-
-//    Optional<StatusJobRegister> findById(Long id);
+    StatusJobRegister findStatusById(Long id);
 
 }
