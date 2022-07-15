@@ -22,4 +22,6 @@ public interface JobRegisterService {
 
     int countJobRegByStatus(Long statusId,String smallDate, String bigDate);
 
+    int countSuccessfullJobReg(int param);
+
 }

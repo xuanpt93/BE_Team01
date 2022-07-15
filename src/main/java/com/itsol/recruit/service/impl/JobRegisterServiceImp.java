@@ -87,4 +87,9 @@ public class JobRegisterServiceImp implements JobRegisterService {
     public int countJobRegByStatus(Long statusId, String smallDate, String bigDate) {
         return jobRegisterRepository.countJobRegisterByStatus(statusId, smallDate,  bigDate);
     }
+
+    @Override
+    public int countSuccessfullJobReg(int param) {
+        return jobRegisterRepository.countSuccessfullJobReg(param);
+    }
 }

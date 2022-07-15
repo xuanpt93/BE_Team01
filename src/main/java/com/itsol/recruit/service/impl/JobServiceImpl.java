@@ -115,4 +115,14 @@ public class JobServiceImpl implements JobService {
         Specification<Job> where = JobSpecification.buildWhere(search);
         return  jobRepository.findAll(where, firstPageWithTwoElements).map(jobMapper::toDto);
     }
+
+    @Override
+    public void updateViewBy(Long id) {
+        Job job = jobRepository.getById(id);
+        job.setViews(job.getViews()+1);
+        job.setId(id);
+        jobRepository.save(job);
+    }
+
+
 }

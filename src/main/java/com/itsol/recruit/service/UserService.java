@@ -37,4 +37,6 @@ public interface UserService {
 
     void updateUser(String name,UserDTO userDTO);
 
+    void updateUserByUsername(String email, UserDTO userDTO);
+
 }

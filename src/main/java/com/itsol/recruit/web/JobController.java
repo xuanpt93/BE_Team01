@@ -9,6 +9,7 @@ import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.impl.JobServiceImpl;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -91,6 +92,11 @@ public class JobController {
     @GetMapping("job/needs/month")
     public int countJobNeeds(@RequestParam("month") int month){
         return jobService.countJobNeedManStepMonth(month);
+    }
+
+    @GetMapping("job/updating/views")
+    public void updateviews(@RequestParam("id") Long id){
+         jobService.updateViewBy(id);
     }
 
 
