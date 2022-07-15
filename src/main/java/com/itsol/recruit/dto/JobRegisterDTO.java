@@ -39,6 +39,8 @@ public class JobRegisterDTO {
     User user;
     @NotNull
     StatusJobRegister statusJobRegister;
+    @NotNull
+    String reason;
 
 
 

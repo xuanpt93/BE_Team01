@@ -38,9 +38,10 @@ public class CustomJobRegisterSpecification implements Specification<JobRegister
 //            return criteriaBuilder.like(root.get("typeInterview"), "%" + value.toString() + "%");
 //        }
 //        else {
+
             Join<JobRegister,User> userJobRegisterJoin = root.join("users");
             return criteriaBuilder.equal(userJobRegisterJoin.get("name"),field);
-//        }
+
     }
 
 }
