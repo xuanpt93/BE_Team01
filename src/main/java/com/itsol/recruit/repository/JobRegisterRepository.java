@@ -15,14 +15,11 @@ import java.util.Optional;
 @Repository
 public interface JobRegisterRepository extends JpaRepository<JobRegister, Long>, JobRegisterRepositoryExt {
 
-    @Query("SELECT  jobRegister FROM job_register jobRegister order by jobRegister.dateRegister asc")
+    @Query("SELECT  jobRegister FROM job_register jobRegister")
     Page<JobRegister> findAllOrderByDateAsc(Pageable pageable, Specification<JobRegister> where);
     Optional<JobRegister> findById(Long id);
 
-    /*
-    * trungnd
-     */
-
+//    JobRegister findByOneId(Long id);
     @Query(value = "select count(*)  from job_register", nativeQuery = true)
     int countAll();
 

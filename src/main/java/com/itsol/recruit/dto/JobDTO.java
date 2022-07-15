@@ -1,7 +1,6 @@
 package com.itsol.recruit.dto;
 
 import com.itsol.recruit.entity.*;
-import javafx.print.PrinterJob;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 

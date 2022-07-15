@@ -1,7 +1,9 @@
 package com.itsol.recruit.service;
 
 import com.itsol.recruit.dto.JobRegisterDTO;
+import com.itsol.recruit.dto.StatusJobRegisterDTO;
 import com.itsol.recruit.entity.JobRegister;
+import com.itsol.recruit.entity.StatusJobRegister;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.data.domain.Page;
 import java.util.Optional;
@@ -13,6 +15,7 @@ public interface JobRegisterService {
     void deleteById(Long id);
     JobRegister updateById(JobRegisterDTO jobRegisterDTO);
 
+    JobRegister updateStatusJobRegister(StatusJobRegisterDTO statusJobRegisterDTO);
     JobRegisterDTO save(JobRegisterDTO jobRegisterDTO);
 
     /*

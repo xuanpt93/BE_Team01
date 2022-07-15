@@ -24,10 +24,6 @@ public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificatio
 
 //    void deleteById(Long id);
 
-    /*
-    * chinhnd
-     */
-
     @Query(value = "select count(*)  from job b", nativeQuery = true)
     int countJobPublished();
 

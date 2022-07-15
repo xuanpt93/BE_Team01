@@ -1,10 +1,13 @@
 package com.itsol.recruit.service;
 
 import com.itsol.recruit.dto.JobDTO;
+
+import com.itsol.recruit.dto.ReasonDTO;
+import com.itsol.recruit.dto.StatusJobDTO;
 import com.itsol.recruit.entity.Job;
+import com.itsol.recruit.web.vm.JobFieldVM;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,10 +36,17 @@ public interface JobService {
 
     Job updateById(JobDTO jobDTO);
 
+    Job updateStatus(StatusJobDTO statusJobDTO);
+
+    Job updateReason(ReasonDTO reasonDTO);
+
     Job findJobByName(String jobName);
+
+    JobFieldVM getFieldSelect();
 
     Page<JobDTO> getAllJobs(PageVM pageVM, String search, String sortBy);
 
     void updateViewBy(Long id);
+
 
 }

@@ -2,8 +2,10 @@ package com.itsol.recruit.web;
 
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.JobRegisterDTO;
+import com.itsol.recruit.dto.StatusJobRegisterDTO;
 import com.itsol.recruit.entity.JobRegister;
 import com.itsol.recruit.entity.ResponseObject;
+import com.itsol.recruit.repository.JobRegisterRepository;
 import com.itsol.recruit.service.JobRegisterService;
 import com.itsol.recruit.service.mapper.JobRegisterMapper;
 import com.itsol.recruit.web.vm.PageVM;
@@ -22,7 +24,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(value = Constants.Api.Path.PUBLIC)
-
+@CrossOrigin
 public class JobRegisterController {
 
     @Autowired
@@ -47,6 +49,7 @@ public class JobRegisterController {
         return ResponseEntity.ok().body("OK");
     }
 
+
     @DeleteMapping("/job_register/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         jobRegisterService.deleteById(id);
@@ -61,10 +64,23 @@ public class JobRegisterController {
     }
 
 
-    /*
-     * trungnd
-     */
-
+    @PostMapping("/job_register/updateStatusJobRegister")
+    public ResponseEntity<ResponseObject> updateStatus(@RequestBody StatusJobRegisterDTO statusJobRegisterDTO){
+        JobRegister jobRegister = jobRegisterService.updateStatusJobRegister(statusJobRegisterDTO);
+        if (jobRegister == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ResponseObject(HttpStatus.BAD_REQUEST, "Không tồn tại", ""));
+        }
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK,"Cập nhật trạng thái thành công", jobRegisterService.updateStatusJobRegister(statusJobRegisterDTO)));
+    }
+//    @PutMapping("/job/updateStatus")
+//    public ResponseEntity<ResponseObject> updateStatus(@RequestBody StatusJobDTO statusJobDTO) {
+//        Job job = jobService.updateStatus(statusJobDTO);
+//        if (job == null) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+//                    new ResponseObject(HttpStatus.BAD_REQUEST, "Job không tồn tại", ""));
+//        }
+//        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "cập nhật trạng thái thành công", jobService.updateStatus(statusJobDTO)));
+//    }
     @GetMapping("number/jobreg")
     public int countNumberOfJobReg() {
         return jobRegisterService.countAll();
