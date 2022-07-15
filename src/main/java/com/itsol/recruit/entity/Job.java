@@ -62,6 +62,7 @@ public class Job implements Serializable {
 
     @Column(name = "description")
     String description;
+    
 
     @Column(name = "interrest")
     String interrest;

@@ -2,11 +2,14 @@ package com.itsol.recruit.web;
 
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.JobDTO;
-import com.itsol.recruit.dto.UserDTO;
+import com.itsol.recruit.dto.ReasonDTO;
+import com.itsol.recruit.dto.StatusJobDTO;
+
 import com.itsol.recruit.entity.Job;
 import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.service.JobService;
-import com.itsol.recruit.service.impl.JobServiceImpl;
+
+import com.itsol.recruit.web.vm.JobFieldVM;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -69,30 +72,51 @@ public class JobController {
         return ResponseEntity.ok().body(page.getContent());
     }
 
-    /*
-    * chinhnd
-     */
+    @PutMapping("/job/updateStatus")
+    public ResponseEntity<ResponseObject> updateStatus(@RequestBody StatusJobDTO statusJobDTO) {
+        Job job = jobService.updateStatus(statusJobDTO);
+        if (job == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Job không tồn tại", ""));
+        }
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "cập nhật trạng thái thành công", jobService.updateStatus(statusJobDTO)));
+    }
+
+    @PutMapping("/job/updateReason")
+    public ResponseEntity<ResponseObject> updateReason(@RequestBody ReasonDTO reasonDTO) {
+        Job job = jobService.updateReason(reasonDTO);
+        if (job == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Job không tồn tại", ""));
+        }
+        return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "cập nhật trạng thái thành công", jobService.updateReason(reasonDTO)));
+    }
+
+    @GetMapping("job/selct")
+    public ResponseEntity<JobFieldVM> getFieldSelect(){
+        return ResponseEntity.ok().body(jobService.getFieldSelect());
+    }
 
     @GetMapping("job/publishing")
-    public int countJobPublish(){
+    public int countJobPublish() {
         return jobService.countJobPublished();
     }
 
     @GetMapping("job/jobDueSoon")
-    public int countAllJobDueSoon(){
+    public int countAllJobDueSoon() {
         return jobService.countAllJobDueSoon();
     }
 
     @GetMapping("job/views")
-    public int countViewsJob(){
+    public int countViewsJob() {
         return jobService.countViewjob();
     }
 
     @GetMapping("job/needs/month")
-    public int countJobNeeds(@RequestParam("month") int month){
+    public int countJobNeeds(@RequestParam("month") int month) {
         return jobService.countJobNeedManStepMonth(month);
     }
-
-
 }
+
+
 

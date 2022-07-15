@@ -46,7 +46,7 @@ public class JobMapper implements EntityMapper<JobDTO, Job> {
         BeanUtils.copyProperties(dto,entity);
         entity.setRank(dto.getRank());
         entity.setWorkingForm(dto.getWorkingForm());
-        entity.setStatusJob(dto.getStatusJob());
+        entity.setStatusJob(statusJobRepository.findById(dto.getStatusJob().getId()).get());
         entity.setJobPosition(dto.getJobPosition());
         entity.setAcademicLevel(dto.getAcademicLevel());
         entity.setContact(dto.getContact());
