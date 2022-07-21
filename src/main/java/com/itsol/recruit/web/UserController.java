@@ -99,4 +99,18 @@ public class UserController {
         userService.updateUser(username,dto);
         return ResponseEntity.ok().body(new ResponseObject(HttpStatus.OK, "Cập nhật thông tin JE thành công", ""));
     }
+
+    @PutMapping("user/updating")
+    public ResponseEntity<ResponseObject> updateinfo(@RequestBody UserDTO dto, @RequestParam("username") String email){
+        if (userService.findUserByEmail(dto.getEmail()) != null && !userService.findUserByUserName(email).getEmail().equals(dto.getEmail())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Email đã tồn tại", ""));
+        } else if (userService.findByPhonenumber(dto.getPhoneNumber()) != null && !userService.findUserByUserName(email).getPhoneNumber().equals(dto.getPhoneNumber())) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                    new ResponseObject(HttpStatus.BAD_REQUEST, "Phone đã tồn tại", ""));
+        }
+      userService.updateUserByUsername(email,dto);
+         return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject(HttpStatus.OK, "OK", ""));
+    }
 }

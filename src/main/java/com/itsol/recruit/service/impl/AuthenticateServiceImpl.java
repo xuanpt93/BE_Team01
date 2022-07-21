@@ -3,6 +3,7 @@ package com.itsol.recruit.service.impl;
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.UserDTO;
 import com.itsol.recruit.entity.OTP;
+import com.itsol.recruit.entity.ResponseObject;
 import com.itsol.recruit.entity.Role;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.event.IMailService;
@@ -98,18 +99,22 @@ public class AuthenticateServiceImpl implements AuthenticateService {
     }
 
 
-    public void changePassword(Long id, String newPassword) {
-        User user = userService.findById(id);
+    public ResponseObject changePassword(String username, String newPassword, String currentpass) {
+        User user = userService.findUserByUserName(username);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (user != null) {
-            if (newPassword.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
-                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            if (passwordEncoder.matches(currentpass,user.getPassword())){
                 String enCryptPassword = passwordEncoder.encode(newPassword);
                 user.setPassword(enCryptPassword);
                 userRepository.save(user);
+                return new ResponseObject("Đổi mật khẩu thành công", "");
+            }else{
+                return new ResponseObject("Mật khẩu không khớp", "");
             }
 
         }
 
+         return new ResponseObject("Không tìm thấy user", "");
     }
 
     public String sendOtpToGmail(String gmail) {

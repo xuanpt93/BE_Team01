@@ -74,9 +74,7 @@ public class StorageServiceImp implements IStorageService {
                 Files.copy(inputStream,destinationFilePath, StandardCopyOption.REPLACE_EXISTING);
             }
             User user = userRepository.findByUserName(username);
-            System.out.println(user);
             Image image = imageRepository.findByUserId(user.getId());
-            System.out.println(image);
 
             if(image == null){
                 Image image2 = new Image();

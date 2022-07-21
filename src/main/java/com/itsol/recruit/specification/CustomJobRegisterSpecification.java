@@ -1,6 +1,7 @@
 package com.itsol.recruit.specification;
 
 import com.itsol.recruit.entity.JobRegister;
+import com.itsol.recruit.entity.StatusJobRegister;
 import com.itsol.recruit.entity.User;
 import com.itsol.recruit.repository.JobRegisterRepository;
 import com.itsol.recruit.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.*;
+import java.util.Date;
 
 @RequiredArgsConstructor
 public class CustomJobRegisterSpecification implements Specification<JobRegister> {
@@ -27,21 +29,19 @@ public class CustomJobRegisterSpecification implements Specification<JobRegister
 
     @Override
     public Predicate toPredicate(Root<JobRegister> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-//        if (field.equalsIgnoreCase("user")) {
-//            return criteriaBuilder.like(root.get("user.Username"), "%" + value.toString() + "%");
-//        }else if (field.equalsIgnoreCase("dateInterview")) {
-//            return criteriaBuilder.like(root.get("dateInterview"), "%" + value.toString() + "%");
-//        }else if (field.equalsIgnoreCase("dateRegister")) {
-//            return criteriaBuilder.like(root.get("dateRegister"), "%" + value.toString() + "%");
-//        }
-//        else if (field.equalsIgnoreCase("typeInterview")) {
-//            return criteriaBuilder.like(root.get("typeInterview"), "%" + value.toString() + "%");
-//        }
-//        else {
-
-            Join<JobRegister,User> userJobRegisterJoin = root.join("users");
-            return criteriaBuilder.equal(userJobRegisterJoin.get("name"),field);
-
+        Join<User, JobRegister> userJobRegisterJoin = root.join("user");
+        Join<StatusJobRegister, JobRegister> statusJobRegisterJoin = root.join("statusJobRegister");
+        if (field.equalsIgnoreCase("name")) {
+            return criteriaBuilder.like(userJobRegisterJoin.get("name"), "%" + value.toString() + "%");
+        }else if (field.equalsIgnoreCase("minDate")) {
+            Expression es = root.<Date>get("dateRegister");
+            return criteriaBuilder.greaterThanOrEqualTo(es, (Date)value);
+        }else if (field.equalsIgnoreCase("maxDate")) {
+            Expression es = root.<Date>get("dateRegister");
+            return criteriaBuilder.lessThanOrEqualTo(es, (Date)value);
+        }else if (field.equalsIgnoreCase("status")) {
+            return criteriaBuilder.equal(statusJobRegisterJoin.get("description"), value);
+        }
+        return null;
     }
-
 }

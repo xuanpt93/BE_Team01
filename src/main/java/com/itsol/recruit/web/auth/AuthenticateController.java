@@ -79,9 +79,8 @@ public class AuthenticateController {
     }
 
     @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(@RequestParam("id") Long id, @RequestParam("password") String pass) {
-        authenticateService.changePassword(id, pass);
-        return ResponseEntity.ok().body("ok");
+    public ResponseEntity<?> changePassword(@RequestParam("username") String username, @RequestParam("password") String pass, @RequestParam("curpassword") String currentpass) {
+        return ResponseEntity.ok().body(authenticateService.changePassword(username, pass,currentpass));
     }
 
     @PreAuthorize("permitAll()")

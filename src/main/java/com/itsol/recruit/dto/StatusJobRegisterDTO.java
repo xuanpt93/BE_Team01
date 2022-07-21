@@ -6,4 +6,5 @@ import lombok.Data;
 public class StatusJobRegisterDTO {
     private  Long jobRegisterId;
     private Long statusJobRegisterId;
+    private String reason;
 }

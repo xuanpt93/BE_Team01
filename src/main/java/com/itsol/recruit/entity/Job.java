@@ -20,7 +20,7 @@ public class Job implements Serializable {
     @Id
     @Column(nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JOBS_SEQ")
-    @SequenceGenerator(name = "JOBS_SEQ", sequenceName = "JOBS_SEQ", allocationSize = 1, initialValue = 1)
+    @SequenceGenerator(name = "JOBS_SEQ", sequenceName = "JOBS_SEQ", allocationSize = 1, initialValue = 6)
     Long id;
 
     @Column(name = "name")
@@ -79,7 +79,7 @@ public class Job implements Serializable {
     @Column(name = "reason")
     String reason;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "contact_id")
     User contact;
 

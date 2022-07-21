@@ -1,5 +1,6 @@
 package com.itsol.recruit.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.itsol.recruit.entity.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -44,9 +45,11 @@ public class JobDTO {
     @NonNull
     Integer qtyPerson;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NonNull
     Date startRecruitmentDate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @NonNull
     Date dueDate;
 
@@ -70,12 +73,11 @@ public class JobDTO {
 
     User creater;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     Date createDate;
 
-    @NonNull
     User updateUser;
 
-    @NonNull
     Date updateDate;
 
     @NonNull

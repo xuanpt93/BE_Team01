@@ -1,24 +1,24 @@
 package com.itsol.recruit.web;
 
 import com.itsol.recruit.core.Constants;
+import com.itsol.recruit.dto.BookInterviewDto;
 import com.itsol.recruit.dto.JobRegisterDTO;
 import com.itsol.recruit.dto.StatusJobRegisterDTO;
 import com.itsol.recruit.entity.JobRegister;
 import com.itsol.recruit.entity.ResponseObject;
-import com.itsol.recruit.repository.JobRegisterRepository;
+import com.itsol.recruit.filter.JobRgfilter;
 import com.itsol.recruit.service.JobRegisterService;
 import com.itsol.recruit.service.mapper.JobRegisterMapper;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,9 +32,9 @@ public class JobRegisterController {
     private JobRegisterMapper jobRegisterMapper;
 
     @PostMapping("/job_register")
-    public ResponseEntity<List<JobRegisterDTO>> getAllDESC(@RequestBody PageVM pageVM ,@RequestParam(value = "search", required = false ) String search, @RequestParam(value = "sortBy", required = false) String sortBy){
+    public ResponseEntity<List<JobRegisterDTO>> getAllDESC(@RequestBody PageVM pageVM , @RequestParam(value = "search", required = false ) String search, JobRgfilter jobRgfilter, @RequestParam(value = "sortBy", required = false) String sortBy){
 
-        Page<JobRegisterDTO> page = jobRegisterService.getAllJobRegister(pageVM, search, sortBy);
+        Page<JobRegisterDTO> page = jobRegisterService.getAllJobRegister(pageVM, search, sortBy, jobRgfilter);
         return ResponseEntity.ok().body(page.getContent());
     }
 
@@ -92,6 +92,20 @@ public class JobRegisterController {
                                              @RequestParam("bigDate") String bigDate) {
         return jobRegisterService.countJobRegByStatus(statusId, smallDate, bigDate);
     }
+
+    @GetMapping("number/jobreg/success")
+    public int countSuccessJobReg(@RequestParam("month") int month) {
+        return jobRegisterService.countSuccessfullJobReg(month);
+    }
+
+   @PutMapping("book/jobreg/interview")
+        public JobRegister bookInterview(@RequestBody BookInterviewDto bookInterviewDto){
+       try {
+           return jobRegisterService.bookInterView(bookInterviewDto);
+       } catch (ParseException e) {
+           throw new RuntimeException(e);
+       }
+   }
 
 
 }

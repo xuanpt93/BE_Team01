@@ -16,15 +16,13 @@ import com.itsol.recruit.specification.UserSpecification;
 import com.itsol.recruit.web.vm.PageVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -128,8 +126,17 @@ public class UserServiceImpl implements UserService {
              firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize(), Sort.by(sortBy));
         }
         Specification<User> where = UserSpecification.buildWhere(search);
-
-        return  userRepository.findAll(where, firstPageWithTwoElements).map(userMapper::toDto);
+       Page<User> userPage =  userRepository.findAll(where, firstPageWithTwoElements);
+       List<User> userList = userPage.getContent();
+       List<User> usersIp = new ArrayList<>();
+       Set<Role> role = roleRepository.findByCode("ROLE_JE");
+       for(int i = 0; i< userList.size(); i++){
+           if(userList.get(i).getRoles().equals(role)){
+               usersIp.add(userList.get(i));
+           }
+        }
+        Page<User> pages = new PageImpl<User>(usersIp);
+        return  pages.map(userMapper::toDto);
     }
 
     @Override
@@ -165,11 +172,25 @@ public class UserServiceImpl implements UserService {
         user.setActive(true);
         user.setRoles(roles);
         user.setId(userRepository.findByUserName(username).getId());
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String enCryptPassword = passwordEncoder.encode(dto.getPassword());
-        user.setPassword(enCryptPassword);
+        user.setPassword(userRepository.findByUserName(username).getPassword());
         userRepository.save(user);
+
     }
+
+    @Override
+    public void updateUserByUsername(String email, UserDTO dto) {
+        User user = userMapper.toEntity(dto);
+        user.setId(userRepository.findByUserName(email).getId());
+        user.setDelete(userRepository.findByUserName(email).isDelete());
+        user.setActive(userRepository.findByUserName(email).isActive());
+        user.setRoles(userRepository.findByUserName(email).getRoles());
+        user.setPassword(userRepository.findByUserName(email).getPassword());
+        user.setUserName(userRepository.findByUserName(email).getUserName());
+        userRepository.save(user);
+
+    }
+
+
 
 }
 

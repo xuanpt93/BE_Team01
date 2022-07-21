@@ -2,11 +2,13 @@ package com.itsol.recruit.web;
 
 import com.itsol.recruit.core.Constants;
 import com.itsol.recruit.dto.JobDTO;
+import com.itsol.recruit.dto.JobRegisterDTO;
 import com.itsol.recruit.dto.ReasonDTO;
 import com.itsol.recruit.dto.StatusJobDTO;
 
-import com.itsol.recruit.entity.Job;
-import com.itsol.recruit.entity.ResponseObject;
+import com.itsol.recruit.entity.*;
+import com.itsol.recruit.filter.JobFilter;
+import com.itsol.recruit.filter.JobRgfilter;
 import com.itsol.recruit.service.JobService;
 
 import com.itsol.recruit.web.vm.JobFieldVM;
@@ -29,9 +31,12 @@ public class JobController {
         this.jobService = jobService;
     }
 
-    @GetMapping("/job")
-    public ResponseEntity<List<Job>> getAllASC() {
-        return ResponseEntity.ok().body(jobService.getAllJob());
+    @PostMapping("/job/all")
+    public ResponseEntity<List<JobDTO>> getAllDESC(@RequestBody PageVM pageVM , @RequestParam(value = "search", required = false ) String search, JobFilter jobFilter,
+                                                   @RequestParam(value = "sortBy", required = false) String sortBy){
+
+        Page<JobDTO> page = jobService.getAllJob(pageVM, search, sortBy, jobFilter);
+        return ResponseEntity.ok().body(page.getContent());
     }
 
     @GetMapping("/job/{id}")
@@ -116,6 +121,36 @@ public class JobController {
     public int countJobNeeds(@RequestParam("month") int month) {
         return jobService.countJobNeedManStepMonth(month);
     }
+
+    @GetMapping("job/updating/views")
+    public void updateviews(@RequestParam("id") Long id){
+         jobService.updateViewBy(id);
+    }
+
+    @GetMapping("job/academiclevel")
+    public List<AcademicLevel> getAllAclevel(){
+        return jobService.getAllAcademiclevel();
+    }
+    @GetMapping("job/Workingform")
+    public List<WorkingForm> getAllWorkingForm(){
+        return jobService.getAllWorkingform();
+    }
+
+    @GetMapping("job/jobposition")
+    public List<JobPosition> getAllJobposition(){
+        return jobService.getAllJobPosition();
+    }
+
+    @GetMapping("job/rank")
+    public List<Rank> getAllRank(){
+        return jobService.getAllRank();
+    }
+
+    @GetMapping("job/statusjob")
+    public List<StatusJob> getAllStatusJob(){
+        return jobService.getAllAStatusJobs();
+    }
+
 }
 
 
