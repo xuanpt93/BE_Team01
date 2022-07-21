@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -13,10 +14,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface JobRegisterRepository extends JpaRepository<JobRegister, Long>, JobRegisterRepositoryExt {
+public interface JobRegisterRepository extends JpaRepository<JobRegister, Long>, JobRegisterRepositoryExt, JpaSpecificationExecutor<JobRegister> {
 
-    @Query("SELECT  jobRegister FROM job_register jobRegister")
-    Page<JobRegister> findAllOrderByDateAsc(Pageable pageable, Specification<JobRegister> where);
+
+//    Page<JobRegister> findAll(Pageable pageable, Specification<JobRegister> where);
     Optional<JobRegister> findById(Long id);
 
 //    JobRegister findByOneId(Long id);
@@ -32,7 +33,6 @@ public interface JobRegisterRepository extends JpaRepository<JobRegister, Long>,
     @Query(value = "select count(*) from job_register j join status_job_register s on j.status_id = s.id  " +
             "where s.code = 'đã tuyển' and extract(month from j.date_register) = :param", nativeQuery = true)
     int countSuccessfullJobReg(int param);
-
 
 
 }

@@ -1,6 +1,8 @@
 package com.itsol.recruit.entity;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -8,7 +10,8 @@ import java.io.Serializable;
 
 @Entity
 @Getter
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class StatusJobRegister implements Serializable {
     @Id
     @Column(nullable = false)

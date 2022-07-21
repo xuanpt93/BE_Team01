@@ -3,6 +3,7 @@ import com.itsol.recruit.dto.JobDTO;
 import com.itsol.recruit.dto.ReasonDTO;
 import com.itsol.recruit.dto.StatusJobDTO;
 import com.itsol.recruit.entity.*;
+import com.itsol.recruit.filter.JobFilter;
 import com.itsol.recruit.repository.*;
 import com.itsol.recruit.service.JobService;
 import com.itsol.recruit.service.mapper.JobMapper;
@@ -54,9 +55,21 @@ public class JobServiceImpl implements JobService {
     UserRepository userRepository;
 
     @Override
-    public List<Job> getAllJob() {
+    public Page<JobDTO> getAllJob(PageVM pageVM, String search, String sortBy, JobFilter jobFilter) {
+        Pageable firstPageWithTwoElements;
+        if(sortBy == null){
+            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
+        }else {
+            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize(), Sort.by(sortBy));
+        }
+        Specification<Job> where = JobSpecification.buildWhere(search, jobFilter);
+        return  jobRepository.findAll(where,firstPageWithTwoElements).map(jobMapper::toDto);
 
-        return jobRepository.findAllOrderByDateAsc();
+    }
+
+    @Override
+    public List<Job> getAllJob() {
+        return null;
     }
 
     @Override
@@ -139,21 +152,26 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    public Page<JobDTO> getAllJobs(PageVM pageVM, String search, String sortBy) {
+        return null;
+    }
+
+    @Override
     public Job findJobByName(String jobName) {
         return jobRepository.findJobByName(jobName);
     }
 
-    @Override
-    public Page<JobDTO> getAllJobs(PageVM pageVM, String search, String sortBy) {
-        Pageable firstPageWithTwoElements;
-        if(sortBy == null){
-            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
-        }else {
-            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize(), Sort.by(sortBy));
-        }
-        Specification<Job> where = JobSpecification.buildWhere(search);
-        return  jobRepository.findAll(where, firstPageWithTwoElements).map(jobMapper::toDto);
-    }
+//    @Override
+//    public Page<JobDTO> getAllJobs(PageVM pageVM, String search, String sortBy) {
+//        Pageable firstPageWithTwoElements;
+//        if(sortBy == null){
+//            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize());
+//        }else {
+//            firstPageWithTwoElements = PageRequest.of(pageVM.getPageNumber(), pageVM.getPageSize(), Sort.by(sortBy));
+//        }
+//        Specification<Job> where = JobSpecification.buildWhere(search);
+//        return  jobRepository.findAll(where, firstPageWithTwoElements).map(jobMapper::toDto);
+//    }
 
     @Override
     public void updateViewBy(Long id) {
@@ -161,6 +179,31 @@ public class JobServiceImpl implements JobService {
         job.setViews(job.getViews()+1);
         job.setId(id);
         jobRepository.save(job);
+    }
+
+    @Override
+    public List<AcademicLevel> getAllAcademiclevel() {
+        return academicLevelRepository.findAll();
+    }
+
+    @Override
+    public List<JobPosition> getAllJobPosition() {
+        return jobPositionRepository.findAll();
+    }
+
+    @Override
+    public List<Rank> getAllRank() {
+        return rankRepository.findAll();
+    }
+
+    @Override
+    public List<StatusJob> getAllAStatusJobs() {
+        return statusJobRepository.findAll();
+    }
+
+    @Override
+    public List<WorkingForm> getAllWorkingform() {
+        return workingFormRepository.findAll();
     }
 
 

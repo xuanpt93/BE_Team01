@@ -34,7 +34,7 @@ public class JobRegister{
     private Date dateRegister;
 
     @Column(name = "date_interview")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date dateInterview;
 
     @Column(name = "method_interview")

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificationExecutor<Job>, PagingAndSortingRepository<Job, Long> {
+public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificationExecutor<Job> {
 
     @Query("SELECT jobs FROM job jobs  ORDER BY jobs.dueDate ASC")
     List<Job> findAllOrderByDateAsc();
@@ -36,7 +36,7 @@ public interface JobRepository extends JpaRepository<Job, Long>, JpaSpecificatio
     int countViewJob();
 
     @Query(value = "select sum(qty_person) from job " +
-            "where job.status_id = 1 " +
+            "where job.status_id = 5 " +
             "and extract(month from job.START_RECRUITMENT_DATE) = :param", nativeQuery = true)
     int countJobNeedManStepMonth(int param);
 
